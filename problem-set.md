@@ -77,8 +77,10 @@ Ghi chú 1.5: các số 0,9800, [0,9400; 1,0] và 50 lần chạy là **số min
 ### Ký tiêu chí (5 phút, phút 60–65)
 
 1. Soát lại `config/acceptance_criteria.json` lần cuối: tên bàn, đủ ngưỡng, `decision_rule`, điều kiện dừng.
-2. Chạy `python3 -m lab10.criteria sign`. Đọc 8 ký tự hash cho Lab Coach ghi sổ.
-3. Từ lúc này **không sửa tiêu chí**. Mọi báo cáo về sau đều in hash; hash khác sổ là bài không được tính.
+2. Chạy `python3 -m lab10.criteria sign`.
+3. **Ngay sau đó, trước lần đánh giá đầu tiên**, chạy đúng lệnh máy in ra:
+   `git add config/acceptance_criteria.json config/acceptance_criteria.lock && git commit -m 'Sign acceptance criteria' && git push`
+4. Từ lúc này **không sửa tiêu chí**. Mọi báo cáo về sau đều in hash; file đổi sau commit ký thì bài không được tính.
 
 Bàn chưa chạy đánh giá lần nào cho tới bước này. Đó là chủ ý: ngưỡng phải được viết khi chưa ai biết trợ lý đạt hay trượt.
 
@@ -115,7 +117,7 @@ Ba vai làm song song 10 phút đầu, rồi cả bàn làm pre-mortem 10 phút.
 
 Tiêu chí đã ký từ phút 60–65; ở đây không ký nữa. Làm đúng thứ tự:
 
-1. **Chốt cổng vòng 1:** `python3 -m lab10.checkpoint`. Lệnh chụp lại `lab10/guards.py` và `config/operating_gates.json` thành mốc **prepared**. Đọc 8 ký tự lệnh in ra cho Lab Coach ghi sổ. Sau khi chốt, bàn vẫn sửa tiếp hai file gốc ở vòng 2; không sửa hai bản chụp.
+1. **Chốt cổng vòng 1:** `python3 -m lab10.checkpoint`. Lệnh chụp lại `lab10/guards.py` và `config/operating_gates.json` thành mốc **prepared**. Sau khi chốt, bàn vẫn sửa tiếp hai file gốc ở vòng 2; không sửa hai bản chụp.
 2. **Quyết định v1:** chạy bộ nền ở mốc prepared (`python3 -m lab10.eval --suite base --stage prepared`), so với tiêu chí đã ký (`python3 -m lab10.gate --run runs/<mã>/report.json`), rồi điền cột **v1** của `templates/gate1-decision.md`: một trong bốn quyết định, ba dòng bằng chứng có mã lần chạy, dòng `decision_rule` tương ứng, ngày quyết định lại. Lưu một bản commit (lệnh ở README mục 7). Sau mốc này v1 không sửa được.
 
 > **Khung tư duy: ba câu tự vấn Go/No-Go (CMU)** · Rủi ro còn lại chấp nhận được như hiện trạng? Cần thêm biện pháp nào, tốn bao lâu? Có phần nào không nên làm tiếp?

@@ -269,6 +269,9 @@ def main(argv=None):
     if why:                                           # ký tiêu chí TRƯỚC khi nhìn số: chưa ký thì không đo
         print(why, file=sys.stderr)
         sys.exit(3)
+    warn = criteria.warn_if_lock_uncommitted()        # cảnh báo nếu chưa commit file khoá; không chặn
+    if warn:
+        print(warn, file=sys.stderr)
     t0 = time.perf_counter()
     report, trials = evaluate(a.suite, a.stage)
     out = write_run(report, trials, a.note)

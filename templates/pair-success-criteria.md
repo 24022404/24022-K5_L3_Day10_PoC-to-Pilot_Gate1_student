@@ -35,7 +35,7 @@
 - Bản cuối của từng câu → chép **ngưỡng** vào `required` / `nice_to_have`, chép **hành động** vào `decision_rule` (bốn dòng:
  Tiếp tục, Thu hẹp, Cải tiến thêm, Dừng) và `stop_condition`. Các khoá này nằm ngay trong `config/acceptance_criteria.json`.
 - Ngày xem lại tiêu chí: `__________` · Ai dự: `__________` (ghi vào bản ghi Gate 1, dòng "Ngày quyết định lại").
-- Ký ngay khi viết xong, ở phút 60–65, **trước khi chạy đánh giá lần nào**: `python3 -m lab10.criteria sign`. Đọc 8 ký tự cho Lab Coach. Sau bước này không sửa.
+- Ký ngay khi viết xong, ở phút 60–65, **trước khi chạy đánh giá lần nào**: `python3 -m lab10.criteria sign`, rồi `git add config/acceptance_criteria.json config/acceptance_criteria.lock && git commit -m 'Sign acceptance criteria' && git push`. Sau bước này không sửa.
 
 **Ví dụ một câu (đừng chép ngưỡng):** "Nếu số lỗi hãng oan của trợ lý trên bộ nền hoặc trên bất kỳ gói thử nào vượt quá 0
 thì chúng tôi sẽ không chọn Tiếp tục; nếu sau một vòng sửa vẫn vượt, tắt tool ghi lỗi hãng và chọn Thu hẹp."

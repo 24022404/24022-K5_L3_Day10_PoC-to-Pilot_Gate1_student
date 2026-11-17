@@ -134,6 +134,9 @@ def check() -> list[tuple[bool, str, str]]:
         h = json.loads(lock.read_text(encoding="utf-8"))["sha256"]
         add(_sha(cfile) == h, f"tiêu chí trong bài nộp khớp hash đã ký ({h[:8]})",
             "file tiêu chí đã bị đổi sau khi ký: trả về đúng bản lúc ký rồi --collect lại")
+    ok_g, what_g, fix_g = criteria.check_sign_git_history()
+    if what_g:                                        # bỏ qua im lặng khi thư mục lab không phải repo git
+        add(ok_g, what_g, fix_g)
     r1, g1, c1 = SUB / "config" / "round1.lock", SUB / "code" / "guards_round1.py", SUB / "config" / "operating_gates.round1.json"
     if r1.exists() and g1.exists() and c1.exists():
         lk = json.loads(r1.read_text(encoding="utf-8"))

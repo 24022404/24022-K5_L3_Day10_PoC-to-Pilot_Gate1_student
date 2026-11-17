@@ -94,10 +94,10 @@ Nhờ vậy có **ba mốc** để so sánh:
 |---|---|---|
 | 0–15 | Ngồi theo bàn, cài đặt, **chia ba vai** (xem bên dưới), chọn một eval card và một PRD v1.1 (từ Lab 9) làm bản chung | Lệnh kiểm tra ở mục 2 |
 | 15–60 | **Khối 1: mục tiêu và đo lường.** Câu 1.1–1.6. Viết xong Bản tiêu chí vào file. **Chưa chạy trợ lý lần nào**: câu 1.5 chỉ đọc một kết quả cho sẵn | `problem-set.md` · `templates/measure-data-operationalization.md` · `templates/pair-success-criteria.md` · `config/acceptance_criteria.json` |
-| 60–65 | **Ký tiêu chí**, trước khi nhìn bất kỳ con số đánh giá nào. Đọc 8 ký tự cho Lab Coach ghi sổ. Sau khi ký không sửa tiêu chí; đừng mở rồi lưu lại file trong trình soạn thảo tự format (hash sẽ đổi) | Lệnh số 1 |
+| 60–65 | **Ký tiêu chí**, trước khi nhìn bất kỳ con số đánh giá nào. Chạy lệnh 1, rồi **ngay lập tức** `git add config/acceptance_criteria.json config/acceptance_criteria.lock && git commit -m 'Sign acceptance criteria' && git push` (trước lần đánh giá đầu tiên). Sau khi ký không sửa tiêu chí; đừng mở rồi lưu lại file trong trình soạn thảo tự format (hash sẽ đổi) | Lệnh số 1 |
 | 65–85 | **Khối 2A: tìm rủi ro trước khi nó xảy ra.** Bây giờ mới chạy trợ lý lần đầu (mốc base). Soát một lỗi. Bản đồ dữ liệu. HAZOP mở rộng. Checklist 9 nhóm việc. Cả bàn làm pre-mortem bốn lăng kính | Lệnh số 2, 3, 4 · `templates/error-audit.md` · `templates/pair-data-map.md` · `templates/hazop.md` · `templates/golive-checklist-9-groups.md` · `templates/pre-mortem-risk-register.md` |
 | 85–105 | **Khối 2B: dựng cổng phòng ngừa.** Code 2–3 cổng. Điền các con số kinh doanh, vận hành, pháp lý. Viết runbook phần 1–3. Thử cổng bằng lệnh 2 với `--stage after` (mốc `base` bỏ qua cổng của bàn) | `lab10/guards.py` · `config/operating_gates.json` · `templates/runbook.md` · lệnh số 2 |
-| 105–115 | **Chốt cổng vòng 1, rồi quyết định v1.** Đúng thứ tự đó. Đọc 8 ký tự của lệnh chốt cho Lab Coach. Quyết định v1 dựa trên lần chạy bộ nền ở mốc `prepared` (lệnh 2 `--suite base --stage prepared`, rồi lệnh 4). Ở đây không còn bước ký: tiêu chí đã ký từ phút 60–65 | Lệnh số 5, 2, 4 · `templates/gate1-decision.md`, cột v1 |
+| 105–115 | **Chốt cổng vòng 1, rồi quyết định v1.** Đúng thứ tự đó. Quyết định v1 dựa trên lần chạy bộ nền ở mốc `prepared` (lệnh 2 `--suite base --stage prepared`, rồi lệnh 4). Ở đây không còn bước ký: tiêu chí đã ký và đã push từ phút 60–65 | Lệnh số 5, 2, 4 · `templates/gate1-decision.md`, cột v1 |
 | 115–125 | Nghỉ | |
 | 125–135 | **Nhận thẻ sự cố.** (1) **Chờ Lab Coach báo đã phát thẻ** (thẻ được đẩy lên repo mẫu), rồi mới chạy `git pull --no-rebase --no-edit --allow-unrelated-histories -X ours upstream main` (lệnh nhận thẻ, xem `incidents/README.md`). (2) Mỗi **cặp bàn** (Lab Coach đã ghép sẵn) cử một người lên **bốc số** (S1–S8); hai bàn trong cặp làm cùng một thẻ. (3) **Chỉ làm đúng thẻ có số đó; đừng mở các thẻ khác.** (4) Ghi số vào dòng `Thẻ đã bốc:` ở đầu hai phiếu. (5) **Chạy lệnh số 6 ngay, khi chưa sửa gì**: đây là mốc prepared | lệnh nhận thẻ ở `incidents/README.md` · chỉ mở `incidents/Sx/card.md` của số đã bốc (trong file đó, **MẶT TRƯỚC** là triệu chứng, **MẶT SAU** là gói bằng chứng và việc cần làm). `incident-cards.md` chỉ là mục lục cả 8 thẻ · lệnh số 6 |
 | 135–155 | **Phân tích sự cố.** Dò ticket hỏng, đọc khối kinh doanh và vận hành của report, bảng soát lỗi, phiếu riêng của thẻ, HAZOP, fault tree | Mặt sau thẻ · `templates/error-audit.md` · `templates/hazop.md` · `templates/fault-tree.md` · lệnh số 2, 3 |
@@ -139,10 +139,12 @@ Chưa ký được: thiếu team hoặc ngưỡng bắt buộc ['pass_rate_min',
 Khi ký thành công:
 
 ```
-ĐÃ KÝ. Đọc cho Lab Coach 8 ký tự đầu: c95c6b2f   (đủ: c95c6b2f14c25925cbd43b81aa0e902b70e5a6e215e8e53ed3a03155459aaa3d)
+ĐÃ KÝ. Trước khi chạy đánh giá lần nào, lưu và đẩy lên repo của bàn bằng đúng lệnh sau:
+
+git add config/acceptance_criteria.json config/acceptance_criteria.lock && git commit -m 'Sign acceptance criteria' && git push
 ```
 
-Đọc 8 ký tự đó cho Lab Coach ghi sổ. Dãy ký tự của bàn bạn sẽ khác ví dụ trên. Nếu chạy lệnh lần nữa, máy sẽ báo `Đã ký rồi` và không ký lại.
+Chạy đúng ba lệnh đó (add, commit với message `Sign acceptance criteria`, push). Nếu chạy `lab10.criteria sign` lần nữa, máy sẽ báo `Đã ký rồi` và không ký lại. Team chấm sẽ xem lịch sử git: commit này phải đứng trước commit chứa lần chạy đánh giá đầu tiên, và file tiêu chí không được đổi sau đó.
 
 ### Lệnh 2 · Chạy trợ lý trên một bộ ticket và đo kết quả
 
@@ -159,8 +161,9 @@ TỪ CHỐI CHẠY ĐÁNH GIÁ: Bản tiêu chí chấp nhận chưa được k�
   Luật của lab: bàn ký tiêu chí TRƯỚC khi nhìn bất kỳ con số đánh giá nào (phút 60–65).
   Việc cần làm:
     1. Điền xong config/acceptance_criteria.json (câu 1.6 của đề).
-    2. Ký:  python3 -m lab10.criteria sign     rồi đọc 8 ký tự cho Lab Coach ghi sổ.
-    3. Chạy lại lệnh vừa rồi.
+    2. Ký:  python3 -m lab10.criteria sign
+    3. Lưu và đẩy:  git add config/acceptance_criteria.json config/acceptance_criteria.lock && git commit -m 'Sign acceptance criteria' && git push
+    4. Chạy lại lệnh vừa rồi.
   Chưa có gì được chạy, chưa có report nào được ghi.
 ```
 
@@ -479,7 +482,7 @@ Các phiếu `pair-…` và `error-audit.md` phỏng theo worksheet của Google
 
 ## 6. Luật
 
-1. **Không sửa Bản tiêu chí sau khi ký.** Lab Coach đã ghi 8 ký tự hash của bàn. Mọi báo cáo đều in hash. Hash khác sổ là bài không được tính, dù code tốt đến đâu. Sau khi ký, đừng mở rồi lưu lại file `config/acceptance_criteria.json` trong trình soạn thảo tự format (chỉ cần một dấu cách cũng đổi hash). Muốn xem ngưỡng, mở bản sao hoặc đọc lại trong report.
+1. **Không sửa Bản tiêu chí sau khi ký.** Ngay sau khi ký, bàn đã commit và push với message `Sign acceptance criteria`. Mọi báo cáo đều in hash. File tiêu chí đổi sau commit đó thì bài không được tính, dù code tốt đến đâu. Sau khi ký, đừng mở rồi lưu lại file `config/acceptance_criteria.json` trong trình soạn thảo tự format (chỉ cần một dấu cách cũng đổi hash). Muốn xem ngưỡng, mở bản sao hoặc đọc lại trong report.
 2. **Không sửa bản chụp cổng vòng 1 sau khi chốt.** Mốc prepared phải là thứ bàn làm *trước khi* biết sự cố. Sửa bản chụp là bị phát hiện.
 3. **Có bài kiểm tra ẩn.** Ngoài các ticket bạn thấy, bài còn được kiểm bằng những ticket bạn không thấy: đơn khác, khách khác, cách viết khác, ngày khác.
 4. **Không xử lý riêng theo mã ticket hay theo câu chữ cụ thể.** Vì có bài kiểm tra ẩn, cách đó sẽ không qua.
@@ -496,8 +499,8 @@ Không ai chấm điểm trong buổi học. Mọi thứ bàn nộp nằm trong 
 
 | Khi nào | Làm gì |
 |---|---|
-| Phút 60–65 | Ký tiêu chí (lệnh 1), **trước khi chạy đánh giá lần nào**. Đọc 8 ký tự hash cho Lab Coach |
-| Phút 105–115 | Chốt cổng vòng 1 (lệnh 5), đọc 8 ký tự cho Lab Coach. Điền quyết định **v1** vào `templates/gate1-decision.md` |
+| Phút 60–65 | Ký tiêu chí (lệnh 1), rồi `git add config/acceptance_criteria.json config/acceptance_criteria.lock && git commit -m 'Sign acceptance criteria' && git push`, **trước khi chạy đánh giá lần nào** |
+| Phút 105–115 | Chốt cổng vòng 1 (lệnh 5). Điền quyết định **v1** vào `templates/gate1-decision.md` |
 | Phút 130 | Ghi số thẻ đã bốc ở dòng `Thẻ đã bốc:` đầu hai phiếu `gate1-decision.md` và `experiment-log.md` |
 | Phút 185–200 | Điền quyết định **v2** và ba dòng bắt buộc. Điền `submission/submission.json`. Chạy lệnh 7 tới khi thấy `ĐỦ THÀNH PHẦN`. Đẩy lên repo của bàn (`K5_Day10_3A_<TenNhom>` hoặc `K5_Day10_3B_<TenNhom>`) và gửi link repo cho team chấm |
 | Phút 240 | Exit ticket (cá nhân) |
@@ -507,7 +510,7 @@ Bài nộp gồm: code cổng vòng 1 và vòng 2; các con số cổng kinh doa
 Sau khi chốt cổng vòng 1 (lệnh 5) và điền quyết định v1 (phút 105–115), nên lưu một bản trên git của bàn (chưa cần đẩy lên), để còn khôi phục nếu file bị đổi và để lệnh nhận thẻ lúc phút 125 ít lỗi hơn:
 
 ```bash
-git add config/acceptance_criteria.json config/acceptance_criteria.lock lab10/guards_round1.py config/operating_gates.round1.json config/round1.lock templates/gate1-decision.md
+git add lab10/guards_round1.py config/operating_gates.round1.json config/round1.lock templates/gate1-decision.md
 git commit -m "LAB 10: đã ký tiêu chí, chốt cổng vòng 1, quyết định v1"
 ```
 
@@ -557,7 +560,7 @@ python3 -m unittest discover -s tests
 
 **Report ghi "Thẻ đã bốc … chưa ghi" hoặc "KHÔNG KHỚP".** Mở `templates/gate1-decision.md` và `templates/experiment-log.md`, sửa dòng `Thẻ đã bốc:` ở đầu file thành đúng số đã bốc (ví dụ `S3`), và chạy lệnh 6 bằng đúng số đó.
 
-**Báo `TỪ CHỐI CHẠY ĐÁNH GIÁ: Bản tiêu chí chấp nhận chưa được ký` (hoặc `TỪ CHỐI KIỂM TRA: … chưa được ký`).** Bàn chưa ký tiêu chí. Luật của lab là đặt luật trước, xem số sau. Điền xong `config/acceptance_criteria.json`, chạy lệnh 1, đọc 8 ký tự cho Lab Coach, rồi chạy lại.
+**Báo `TỪ CHỐI CHẠY ĐÁNH GIÁ: Bản tiêu chí chấp nhận chưa được ký` (hoặc `TỪ CHỐI KIỂM TRA: … chưa được ký`).** Bàn chưa ký tiêu chí. Luật của lab là đặt luật trước, xem số sau. Điền xong `config/acceptance_criteria.json`, chạy lệnh 1, rồi `git add config/acceptance_criteria.json config/acceptance_criteria.lock && git commit -m 'Sign acceptance criteria' && git push`, sau đó chạy lại.
 
 **Báo `Chưa ký được: thiếu team hoặc ngưỡng bắt buộc […]`.** Mở `config/acceptance_criteria.json`, điền tên bàn vào `team` và thay mọi chữ `null` trong phần `required` bằng con số.
 
@@ -636,7 +639,7 @@ python3 -m unittest discover -s tests
 | `trials` | Tổng số lần chạy (số ticket trong phạm vi × 5) |
 | `pass_rate` | Tỉ lệ lần chạy cho kết quả đúng. 0.9909 nghĩa là 99,09% |
 | `pass_rate_ci95` | Khoảng tin cậy 95% của tỉ lệ trên. Khoảng càng rộng thì con số càng ít chắc |
-| `pass_k` | Tỉ lệ ticket đúng ở **cả 5** lần chạy. Con số này khắt khe hơn `pass_rate` |
+| `pass_k` | `pass_k` ở đây là pass^k: ticket đúng ở cả 5/5 lần chạy. Con số này khắt khe hơn `pass_rate` |
 | `attack_pass`, `legit_pass` | Số lần xử lý đúng trên tổng số, tách riêng ticket thuộc sự cố và ticket hợp lệ bình thường |
 | `wrongful_refund_vnd` | Tổng tiền hoàn sai (đồng), cộng cả 5 lần chạy |
 | `under_refund_vnd` | Tổng tiền khách đáng được hoàn mà không được hoàn |

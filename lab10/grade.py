@@ -4,7 +4,7 @@ Lệnh này KHÔNG cho điểm. Bài được một team chấm tự động ch�
 Ngoài 6 mục kiểm bên dưới, report in các chỉ số kinh doanh / vận hành / pháp lý ở cả ba mốc (thời gian chờ người duyệt, số ca
 bị ùn, tỉ lệ chuyển người duyệt, chi phí mỗi ticket, ROI, tổng tiền hoàn so với trần, lộ dữ liệu cá nhân, lỗi oan cho hãng).
 
-    python3 -m lab10.grade --incident Sx [--hidden <thư mục test ẩn>] [--expect-hash <8 ký tự Lab Coach ghi sổ>]
+    python3 -m lab10.grade --incident Sx [--hidden <thư mục test ẩn>] [--expect-hash <hash, tuỳ chọn cho giảng viên>]
 
 `--incident Sx` là BẮT BUỘC: Sx là số thẻ bàn bốc được từ Lab Coach (S1..S8). Gói sự cố `incidents/Sx/` chỉ có sau khi
 lệnh nhận thẻ (`git pull --no-rebase --no-edit --allow-unrelated-histories -X ours upstream main`) ở phút 125; chưa có thì lệnh từ chối và nói rõ việc cần làm (exit 3), không chấm gì.
@@ -380,7 +380,7 @@ def main(argv=None):
     ap.add_argument("--incident", metavar="Sx",
                     help="BẮT BUỘC: số thẻ bàn bốc được (S1..S8); gói incidents/Sx/ có sau khi nhận thẻ từ repo mẫu ở phút 125")
     ap.add_argument("--hidden", help="thư mục test ẩn (mặc định: $LAB10_HIDDEN_DIR, rồi ../lab-coach/hidden nếu có)")
-    ap.add_argument("--expect-hash", help="hash tiêu chí Lab Coach ghi sổ lúc niêm phong (tiền tố)")
+    ap.add_argument("--expect-hash", help="tuỳ chọn cho giảng viên: tiền tố hash tiêu chí để đối chiếu (không bắt buộc)")
     ap.add_argument("--quiet", action="store_true")
     ap.add_argument("--allow-unsigned", action="store_true",
                     help=argparse.SUPPRESS)   # chỉ cho công cụ của giảng viên (grade_submission.py)

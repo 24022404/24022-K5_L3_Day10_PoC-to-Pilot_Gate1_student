@@ -13,8 +13,8 @@ bao nhiêu thời gian? (3) Có phần nào của dự án không nên làm ti�
 
 | | **v1** (phút 105–115, TRƯỚC khi nhận thẻ sự cố) | **v2** (phút 185–200, SAU sự cố) |
 |---|---|---|
-| Hash Bản tiêu chí đã ký (8 ký tự) | | phải giống v1 |
-| Hash chốt cổng vòng 1 (8 ký tự, lệnh `lab10.checkpoint` in ra) | | phải giống v1 |
+| Commit ký tiêu chí (message `Sign acceptance criteria`; hash commit, tuỳ chọn) | | phải giống v1 |
+| Hash chốt cổng vòng 1 (8 ký tự lệnh `lab10.checkpoint` in ra, tuỳ chọn) | | phải giống v1 |
 | Mã lần chạy dùng làm bằng chứng | bộ nền, mốc base: ________ · bộ nền với cổng vòng 1: ________ | thẻ, mốc base: ________ · prepared: ________ · after: ________ |
 | Còn dòng "vượt trần" nào trong report? (hàng chờ, chi phí, ROI, trần tiền, pháp lý) | | |
 | Quyết định (khoanh một) | Tiếp tục · Thu hẹp · Cải tiến thêm · Dừng | Tiếp tục · Thu hẹp · Cải tiến thêm · Dừng |

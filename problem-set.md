@@ -12,8 +12,8 @@
 
 | Vòng | Bàn làm gì | Mốc để so sánh |
 |---|---|---|
-| **Vòng 1** (phút 15–115), chưa biết sự cố | Mục tiêu và thước đo → viết Bản tiêu chí → **ký tiêu chí TRƯỚC khi chạy đánh giá lần nào** (phút 45–50) → đo mốc base → pre-mortem, HAZOP, checklist 9 nhóm việc → **code 2–3 cổng phòng ngừa** và đặt cổng kinh doanh, vận hành, pháp lý → **chốt cổng vòng 1** → quyết định **v1** | **base**: chưa có cổng nào |
-| **Vòng 2** (phút 125–200), sau khi `git pull` và bốc thẻ | **Chạy tự kiểm tra trước, chỉ với cổng vòng 1** → phân tích → sửa → quyết định **v2** | **prepared**: chỉ có cổng vòng 1 · **after**: sau khi sửa |
+| **Vòng 1** (phút 15–115), chưa biết sự cố | Mục tiêu và thước đo → viết Bản tiêu chí → **ký tiêu chí TRƯỚC khi chạy đánh giá lần nào** (phút 60–65) → đo mốc base → pre-mortem, HAZOP, checklist 9 nhóm việc → **code 2–3 cổng phòng ngừa** và đặt cổng kinh doanh, vận hành, pháp lý → **chốt cổng vòng 1** → quyết định **v1** | **base**: chưa có cổng nào |
+| **Vòng 2** (phút 125–200), sau khi nhận thẻ (`git pull --no-rebase --no-edit --allow-unrelated-histories -X ours upstream main`) và bốc thẻ | **Chạy tự kiểm tra trước, chỉ với cổng vòng 1** → phân tích → sửa → quyết định **v2** | **prepared**: chỉ có cổng vòng 1 · **after**: sau khi sửa |
 
 Demo cuối buổi so sánh ba mốc **base · prepared · after**: cổng bàn chuẩn bị trước đỡ được gì, phần nào phải sửa sau.
 
@@ -22,13 +22,13 @@ Demo cuối buổi so sánh ba mốc **base · prepared · after**: cổng bàn 
 | Phần | Phút trên đồng hồ lab | Thời lượng |
 |---|---|---|
 | Mở đầu, chia vai | 0–15 | 15' |
-| Khối 1 · Mục tiêu và đo lường (viết xong Bản tiêu chí) | 15–45 | 30' |
-| **Ký tiêu chí** (trước khi chạy đánh giá lần nào) | 45–50 | 5' |
-| Khối 2A · Tìm rủi ro trước khi nó xảy ra | 50–75 | 25' |
-| Khối 2B · Cổng phòng ngừa | 75–100 | 25' |
-| Chốt cổng vòng 1 · quyết định v1 | 100–115 | 15' |
+| Khối 1 · Mục tiêu và đo lường (viết xong Bản tiêu chí) | 15–60 | 45' |
+| **Ký tiêu chí** (trước khi chạy đánh giá lần nào) | 60–65 | 5' |
+| Khối 2A · Tìm rủi ro trước khi nó xảy ra | 65–85 | 20' |
+| Khối 2B · Cổng phòng ngừa | 85–105 | 20' |
+| Chốt cổng vòng 1 · quyết định v1 | 105–115 | 10' |
 | Nghỉ | 115–125 | 10' |
-| Khối 3 · Sự cố (git pull, bốc thẻ, mốc prepared, phân tích, sửa) | 125–185 | 60' |
+| Khối 3 · Sự cố (nhận thẻ từ repo mẫu, bốc thẻ, mốc prepared, phân tích, sửa) | 125–185 | 60' |
 | Quyết định v2 · runbook · gom bài nộp | 185–200 | 15' |
 | Demo ba mốc | 200–230 | 30' |
 | Tổng kết | 230–240 | 10' |
@@ -55,9 +55,9 @@ Bạn có: eval card và PRD v1.1 từ Lab 9; codebase Day 10 với bộ nền 2
 
 Câu trả lời phải bám tình huống LogiX và dữ kiện trong code. Trả lời chung chung không đạt.
 
-## Khối 1 · Mục tiêu và đo lường (30 phút, phút 15–45), rồi ký (phút 45–50)
+## Khối 1 · Mục tiêu và đo lường (45 phút, phút 15–60), rồi ký (phút 60–65)
 
-**Đặt luật trước, xem số sau.** Trong khối này bàn **chưa chạy trợ lý lần nào**. Bàn viết xong Bản tiêu chí rồi ký ở phút 45–50; chỉ sau khi ký mới được chạy `lab10.eval`. Nếu chạy sớm, lệnh sẽ từ chối và nhắc bàn ký trước. Câu 1.5 cho sẵn một kết quả để tập đọc khoảng tin cậy; đó không phải lần chạy của bàn.
+**Đặt luật trước, xem số sau.** Trong khối này bàn **chưa chạy trợ lý lần nào**. Bàn viết xong Bản tiêu chí rồi ký ở phút 60–65; chỉ sau khi ký mới được chạy `lab10.eval`. Nếu chạy sớm, lệnh sẽ từ chối và nhắc bàn ký trước. Câu 1.5 cho sẵn một kết quả để tập đọc khoảng tin cậy; đó không phải lần chạy của bàn.
 
 > **Khung tư duy: Thước đo → Dữ liệu → Cách tính (CMU) cho câu 1.3–1.4; Define success criteria (worksheet PAIR User Needs) cho câu 1.6**
 > - Câu hỏi dẫn dắt: thành công nhìn từ ai? Con số nào, tính thế nào, để hai người độc lập ra cùng kết quả? Điều gì phải viết ra trước khi xem bằng chứng?
@@ -67,14 +67,14 @@ Câu trả lời phải bám tình huống LogiX và dữ kiện trong code. Tr�
 |---|---|---|---|---|
 | **1.1** | Nêu **một mục tiêu cấp hệ thống** của trợ lý (không cần thước đo). Phải khác "model trả lời đúng" | 2 | Sản phẩm và kinh doanh | PRD v1.1 §3 |
 | **1.2** | Nêu **một mục tiêu nhìn từ chị Oanh, kế toán đối soát** (người không dùng trợ lý nhưng phải khớp sổ với hãng và shop mỗi tuần), và **một mục tiêu nhìn từ chị Hạnh, trưởng ca CSKH** (người phải duyệt những ca trợ lý chuyển sang) | 3 | Vận hành và pháp lý | PRD v1.1 §2 (phạm vi), §6 (rủi ro mở); `data/world.json` → `staff` |
-| **1.3** | Chọn **MỘT bước** của agent (đọc ticket / chọn độ trễ / chọn chính sách / tìm phê duyệt / ghi lỗi hãng). Thiết kế **một offline metric** cho riêng bước đó: Thước đo · Dữ liệu (lấy gì, ở đâu, ai gán nhãn) · Cách tính | 7 | Kỹ sư cổng | `templates/measure-data-operationalization.md`; eval card Lab 9 |
+| **1.3** | Chọn **MỘT bước** của agent (đọc ticket / chọn độ trễ / chọn chính sách / tìm phê duyệt / ghi lỗi hãng). Thiết kế **một offline metric** cho riêng bước đó: Thước đo · Dữ liệu (lấy gì, ở đâu, ai gán nhãn) · Cách tính | 10 | Kỹ sư cổng | `templates/measure-data-operationalization.md`; eval card Lab 9 |
 | **1.4** | Thiết kế **telemetry production** để biết trợ lý có đang gây thiệt hại cho bên ngoài LogiX không. Cùng ba ô, thêm **khung thời gian** và **ngưỡng báo động**. Không có nhãn trong production | 5 | Vận hành và pháp lý | `templates/measure-data-operationalization.md` |
-| **1.5** | Đọc kết quả sau rồi chọn MỘT kết luận đúng và giải thích một câu: bản X trên bộ nền có pass_rate 0,9909 (109/110 lần chạy), khoảng tin cậy 95% [0,9727; 1,0]. Bản Y có pass_rate 1,0 (110/110). (a) Y tốt hơn X có ý nghĩa thống kê. (b) Chưa đủ căn cứ nói Y tốt hơn X; chênh 1 lần chạy nằm trong khoảng tin cậy của X. (c) X và Y chắc chắn như nhau. (d) Phải chạy thêm seed thì X mới đạt. *(Số cho sẵn để tập đọc; bàn không tự chạy đánh giá ở khối này.)* | 3 | Cả bàn | deck: "một lần chạy chưa đủ; cần khoảng tin cậy" |
-| **1.6** | **Viết Bản tiêu chí** theo `templates/pair-success-criteria.md`: (a) viết mỗi chỉ số bắt buộc thành một câu "Nếu … thì chúng tôi sẽ …"; (b) soát bốn câu hỏi (có ý nghĩa với mọi bên? ai thiệt? ngày 1? ngày 1.000?); (c) chép ngưỡng và hành động vào `config/acceptance_criteria.json`: 5 ngưỡng bắt buộc, 1 nên có, **nhóm `business_ops`** (chi phí mỗi ticket tối đa, ROI tối thiểu, số ca ùn tối đa), điều kiện dừng, `decision_rule` cho cả bốn quyết định. **Viết xong thì ký ngay ở phút 45–50, trước khi chạy đánh giá lần nào** | 10 | Sản phẩm và kinh doanh | worksheet PAIR User Needs "Define success criteria" (mẫu trên); `config/acceptance_criteria.example.json` (đừng chép ngưỡng) |
+| **1.5** | Đọc kết quả sau rồi chọn MỘT kết luận đúng và giải thích một câu. **Các số dưới đây là số minh hoạ**, không phải số của bộ nền lab (bàn sẽ tự đo số thật ở câu 2.4, sau khi đã ký): bản X có pass_rate 0,9800 (49/50 lần chạy), khoảng tin cậy 95% [0,9400; 1,0]. Bản Y có pass_rate 1,0 (50/50). (a) Y tốt hơn X có ý nghĩa thống kê. (b) Chưa đủ căn cứ nói Y tốt hơn X; chênh 1 lần chạy nằm trong khoảng tin cậy của X. (c) X và Y chắc chắn như nhau. (d) Phải chạy thêm seed thì X mới đạt. *(Số minh hoạ cho sẵn để tập đọc; bàn không tự chạy đánh giá ở khối này.)* | 3 | Cả bàn | deck: "một lần chạy chưa đủ; cần khoảng tin cậy" |
+| **1.6** | **Viết Bản tiêu chí** theo `templates/pair-success-criteria.md`: (a) viết mỗi chỉ số bắt buộc thành một câu "Nếu … thì chúng tôi sẽ …"; (b) soát bốn câu hỏi (có ý nghĩa với mọi bên? ai thiệt? ngày 1? ngày 1.000?); (c) chép ngưỡng và hành động vào `config/acceptance_criteria.json`: 5 ngưỡng bắt buộc, 1 nên có, **nhóm `business_ops`** (chi phí mỗi ticket tối đa, ROI tối thiểu, số ca ùn tối đa), điều kiện dừng, `decision_rule` cho cả bốn quyết định. **Viết xong thì ký ngay ở phút 60–65, trước khi chạy đánh giá lần nào** | 20 | Sản phẩm và kinh doanh | worksheet PAIR User Needs "Define success criteria" (mẫu trên); `config/acceptance_criteria.example.json` (đừng chép ngưỡng) |
 
-Ghi chú 1.5: số 0,9909, [0,9727; 1,0] và 110 lần chạy là số thật của mốc base trên bộ nền. Đề cho sẵn để dạy cách đọc khoảng tin cậy. Bàn sẽ tự chạy ra đúng các số này ở câu 2.4, sau khi đã ký.
+Ghi chú 1.5: các số 0,9800, [0,9400; 1,0] và 50 lần chạy là **số minh hoạ**, tính khoảng tin cậy cùng cách lệnh `lab10.eval` dùng (bootstrap 1.000 mẫu). Chúng cố ý khác số thật của mốc base trên bộ nền. Bàn sẽ tự chạy và đọc số thật ở câu 2.4, sau khi đã ký.
 
-### Ký tiêu chí (5 phút, phút 45–50)
+### Ký tiêu chí (5 phút, phút 60–65)
 
 1. Soát lại `config/acceptance_criteria.json` lần cuối: tên bàn, đủ ngưỡng, `decision_rule`, điều kiện dừng.
 2. Chạy `python3 -m lab10.criteria sign`. Đọc 8 ký tự hash cho Lab Coach ghi sổ.
@@ -82,38 +82,38 @@ Ghi chú 1.5: số 0,9909, [0,9727; 1,0] và 110 lần chạy là số thật c�
 
 Bàn chưa chạy đánh giá lần nào cho tới bước này. Đó là chủ ý: ngưỡng phải được viết khi chưa ai biết trợ lý đạt hay trượt.
 
-## Khối 2A · Tìm rủi ro trước khi nó xảy ra (25 phút, phút 50–75)
+## Khối 2A · Tìm rủi ro trước khi nó xảy ra (20 phút, phút 65–85)
 
 > **Khung tư duy: pre-mortem bốn lăng kính (kỹ thuật, kinh doanh, con người và vận hành, pháp lý); HAZOP (CMU) mở rộng ra ngoài code; hai bước làm bằng worksheet PAIR: Get to know your data (câu 2.2) và Error audit (câu 2.5)**
 > - Câu hỏi dẫn dắt: ba tháng sau pilot phải tắt trợ lý, vì sao? Thứ gì hết trước khi lượng việc tăng gấp ba: máy, tiền, hay người? Dữ liệu của ai rời hệ thống mà họ không biết?
 > - Ví dụ mẫu: xem bảng "Mở rộng ra ngoài kỹ thuật" trong `templates/hazop.md`.
 
-Ba vai làm song song 15 phút đầu, rồi cả bàn làm pre-mortem 10 phút.
+Ba vai làm song song 10 phút đầu, rồi cả bàn làm pre-mortem 10 phút.
 
 | Câu | Nội dung | Phút | Vai cầm bút | Công cụ hướng dẫn |
 |---|---|---|---|---|
-| **2.4** | **Lần chạy đánh giá đầu tiên của bàn (tiêu chí đã ký).** Chạy mốc **base**: `python3 -m lab10.eval --suite base --stage base --note "baseline"`, rồi `python3 -m lab10.gate --run runs/<mã>/report.json`. Ghi **mã lần chạy**. Đọc cả khối "kinh doanh và vận hành" ở cuối. Nêu lý lẽ chính ủng hộ và phản đối việc để cổng này **tự chặn** một bản phát hành (so với người duyệt), rồi khoanh khuyến nghị: tự chặn / người duyệt / kết hợp | 7 | Kỹ sư cổng | đề CMU tr. 5 (ý: ưu, nhược rồi chọn); deck "Bước đánh giá" |
-| **2.5** | Dò `python3 -m lab10.trace --suite base --ticket T-002 --seed 55`. **Điền `templates/error-audit.md` cho lỗi này** (ghi lỗi + loại lỗi, tìm nguồn, hướng xử lý) | 8 | Kỹ sư cổng | worksheet PAIR Errors "Error audit" (mẫu trên) |
-| **2.2** | **Điền `templates/pair-data-map.md`** (trường then chốt, nguồn sự thật hay bản sao, thế giới thật làm lệch ở đâu). Rút ra **một ví dụ drift cụ thể** trong 3 tháng tới: cái gì đổi, đổi ngày nào, trường nào cho thấy, con số nào của Bản tiêu chí bị ảnh hưởng. Gợi ý: mở `data/world.json` phần `policies`, `orders[].parcels`, `ops_limits`, `ops_facts` | 15 | Sản phẩm và kinh doanh | worksheet PAIR Data Collection "Get to know your data" (mẫu trên); khái niệm drift theo đề CMU tr. 4 |
-| **2.6** | **HAZOP mở rộng** (`templates/hazop.md`): một vòng trên một tool ghi (≥ 3 dòng), cộng **ít nhất hai dòng ngoài kỹ thuật** (người duyệt, ngân sách, phạm vi pilot, dữ liệu gửi bên thứ ba). Rồi điền **checklist 9 nhóm việc lần 1**: trạng thái, bằng chứng, và **PIC có tên** cho từng dòng | 15 | Vận hành và pháp lý | `templates/hazop.md`; `templates/golive-checklist-9-groups.md` |
+| **2.4** | **Lần chạy đánh giá đầu tiên của bàn (tiêu chí đã ký).** Chạy mốc **base**: `python3 -m lab10.eval --suite base --stage base --note "baseline"`, rồi `python3 -m lab10.gate --run runs/<mã>/report.json`. Ghi **mã lần chạy**. Đọc cả khối "kinh doanh và vận hành" ở cuối. Nêu lý lẽ chính ủng hộ và phản đối việc để cổng này **tự chặn** một bản phát hành (so với người duyệt), rồi khoanh khuyến nghị: tự chặn / người duyệt / kết hợp | 6 | Kỹ sư cổng | đề CMU tr. 5 (ý: ưu, nhược rồi chọn); deck "Bước đánh giá" |
+| **2.5** | Dò `python3 -m lab10.trace --suite base --ticket T-002 --seed 55`. **Điền `templates/error-audit.md` cho lỗi này** (ghi lỗi + loại lỗi, tìm nguồn, hướng xử lý) | 4 | Kỹ sư cổng | worksheet PAIR Errors "Error audit" (mẫu trên) |
+| **2.2** | **Điền `templates/pair-data-map.md`** (trường then chốt, nguồn sự thật hay bản sao, thế giới thật làm lệch ở đâu). Rút ra **một ví dụ drift cụ thể** trong 3 tháng tới: cái gì đổi, đổi ngày nào, trường nào cho thấy, con số nào của Bản tiêu chí bị ảnh hưởng. Gợi ý: mở `data/world.json` phần `policies`, `orders[].parcels`, `ops_limits`, `ops_facts` | 10 | Sản phẩm và kinh doanh | worksheet PAIR Data Collection "Get to know your data" (mẫu trên); khái niệm drift theo đề CMU tr. 4 |
+| **2.6** | **HAZOP mở rộng** (`templates/hazop.md`): một vòng trên một tool ghi (≥ 3 dòng), cộng **ít nhất hai dòng ngoài kỹ thuật** (người duyệt, ngân sách, phạm vi pilot, dữ liệu gửi bên thứ ba). Rồi điền **checklist 9 nhóm việc lần 1**: trạng thái, bằng chứng, và **PIC có tên** cho từng dòng | 10 | Vận hành và pháp lý | `templates/hazop.md`; `templates/golive-checklist-9-groups.md` |
 | **2.7** | **Pre-mortem bốn lăng kính** (`templates/pre-mortem-risk-register.md`): cả bàn, 8–10 phút. Lăng kính nào trống thì viết thêm. Chọn **2–3 lý do** sẽ thành cổng phòng ngừa ngay hôm nay | 10 | Cả bàn | pre-mortem của Gary Klein (xem mẫu) |
 
-## Khối 2B · Cổng phòng ngừa (25 phút, phút 75–100)
+## Khối 2B · Cổng phòng ngừa (20 phút, phút 85–105)
 
 > **Khung tư duy: biện pháp cấp hệ thống nằm ngoài model và prompt (CMU); rò rỉ dữ liệu, behavioral test**
 > - Câu hỏi dẫn dắt: cổng này chặn trước lệnh ghi nào? Nó dựa vào nguồn sự thật nào? Nó có làm hỏng ticket đang đúng không? Con số nào không cần code, chỉ cần một người có thẩm quyền quyết?
 
 | Câu | Nội dung | Phút | Vai cầm bút | Công cụ hướng dẫn |
 |---|---|---|---|---|
-| **2.8** | **Code 2–3 cổng phòng ngừa** trong `lab10/guards.py`, mỗi cổng ứng với một lý do của pre-mortem hoặc một dòng HAZOP. Chạy `python3 -m lab10.eval --suite base --stage after --note "cổng vòng 1: ..."` và `python3 -m unittest discover -s tests`. Cổng không được làm hỏng ticket đang đúng của bộ nền | 20 | Kỹ sư cổng | hướng dẫn ở đầu `lab10/guards.py`; `lab10/helpers.py`; README phụ lục C |
+| **2.8** | **Code 2–3 cổng phòng ngừa** trong `lab10/guards.py`, mỗi cổng ứng với một lý do của pre-mortem hoặc một dòng HAZOP. Chạy `python3 -m lab10.eval --suite base --stage after --note "cổng vòng 1: ..."` và `python3 -m unittest discover -s tests`. Cổng không được làm hỏng ticket đang đúng của bộ nền | 16 | Kỹ sư cổng | hướng dẫn ở đầu `lab10/guards.py`; `lab10/helpers.py`; README phụ lục C |
 | **2.1** | Bàn đang chỉnh cổng cho tới khi 22 ticket của bộ nền xanh hết. Nêu **2 bước cụ thể** để tránh rò rỉ dữ liệu (chỉnh trên chính bộ dùng để chấm). Gắn với thứ có thật trong lab: bộ nền, gói sự cố, bài kiểm tra ẩn | 3 | Kỹ sư cổng | đề CMU tr. 4 (ý: tách dữ liệu phát triển và dữ liệu chấm) |
 | **2.3** | Viết **một behavioral test**: phát biểu tính chất (một câu), rồi viết **2 ticket mới** kiểm tính chất đó và chạy bằng `python3 -m lab10.trace --suite base --stage after --adhoc "..." --order O-10xx --customer C-xx`. Dán kết quả. Giữ 2 ticket này làm "ticket hiểm" cho phần demo | 7 | Kỹ sư cổng cùng một người không viết code | đề CMU tr. 5 (ý: kiểm tính chất, tự tạo dữ liệu thử) |
-| **2.9** | **Đặt cổng kinh doanh** trong `config/operating_gates.json` mục `business`: trần tiền hoàn tự động mỗi ngày, ngân sách chi phí mỗi ticket, phạm vi pilot (tất cả / kho nào / bao nhiêu phần trăm), ngưỡng ROI. Mỗi con số kèm một câu lý do, lấy từ `data/world.json` → `ops_limits`, `ops_facts` | 12 | Sản phẩm và kinh doanh | README mục 5 "Cổng trong config"; pre-mortem lăng kính kinh doanh |
-| **2.10** | **Đặt cổng con người, vận hành, pháp lý** trong `config/operating_gates.json` mục `operations` và `legal`: PIC, người duyệt, số người trực mỗi ca, công suất duyệt mỗi giờ, thời gian chờ tối đa, điều kiện dừng, kênh báo tin; trường dữ liệu cá nhân không gửi cho bên thứ ba; ghi lỗi cho hãng phải có nguyên nhân trong tracking. Viết **runbook phần 1–3** (`templates/runbook.md`) khớp với các con số đó | 20 | Vận hành và pháp lý | README mục 5; `templates/runbook.md` |
+| **2.9** | **Đặt cổng kinh doanh** trong `config/operating_gates.json` mục `business`: trần tiền hoàn tự động mỗi ngày, ngân sách chi phí mỗi ticket, phạm vi pilot (tất cả / kho nào / bao nhiêu phần trăm), ngưỡng ROI. Mỗi con số kèm một câu lý do, lấy từ `data/world.json` → `ops_limits`, `ops_facts` | 10 | Sản phẩm và kinh doanh | README mục 5 "Cổng trong config"; pre-mortem lăng kính kinh doanh |
+| **2.10** | **Đặt cổng con người, vận hành, pháp lý** trong `config/operating_gates.json` mục `operations` và `legal`: PIC, người duyệt, số người trực mỗi ca, công suất duyệt mỗi giờ, thời gian chờ tối đa, điều kiện dừng, kênh báo tin; trường dữ liệu cá nhân không gửi cho bên thứ ba; ghi lỗi cho hãng phải có nguyên nhân trong tracking. Viết **runbook phần 1–3** (`templates/runbook.md`) khớp với các con số đó | 16 | Vận hành và pháp lý | README mục 5; `templates/runbook.md` |
 
-## Chốt · quyết định v1 (15 phút, phút 100–115)
+## Chốt · quyết định v1 (10 phút, phút 105–115)
 
-Tiêu chí đã ký từ phút 45–50; ở đây không ký nữa. Làm đúng thứ tự:
+Tiêu chí đã ký từ phút 60–65; ở đây không ký nữa. Làm đúng thứ tự:
 
 1. **Chốt cổng vòng 1:** `python3 -m lab10.checkpoint`. Lệnh chụp lại `lab10/guards.py` và `config/operating_gates.json` thành mốc **prepared**. Đọc 8 ký tự lệnh in ra cho Lab Coach ghi sổ. Sau khi chốt, bàn vẫn sửa tiếp hai file gốc ở vòng 2; không sửa hai bản chụp.
 2. **Quyết định v1:** chạy bộ nền ở mốc prepared (`python3 -m lab10.eval --suite base --stage prepared`), so với tiêu chí đã ký (`python3 -m lab10.gate --run runs/<mã>/report.json`), rồi điền cột **v1** của `templates/gate1-decision.md`: một trong bốn quyết định, ba dòng bằng chứng có mã lần chạy, dòng `decision_rule` tương ứng, ngày quyết định lại. Lưu một bản commit (lệnh ở README mục 7). Sau mốc này v1 không sửa được.
@@ -126,7 +126,7 @@ Tiêu chí đã ký từ phút 45–50; ở đây không ký nữa. Làm đúng 
 
 ## Cách tung
 
-- Phút 125: Lab Coach báo "đã phát thẻ". Mỗi bàn chạy `git pull --no-rebase --no-edit` để tải về thư mục `incidents/S1…S8/` và file `incident-cards.md` (trước mốc này repo của bàn chưa có hai thứ đó). Mỗi **cặp bàn** cử một người lên **bốc số** (S1–S8). Bàn **chỉ làm đúng thẻ có số bốc được**: `incidents/Sx/card.md`.
+- Phút 125: Lab Coach báo "đã phát thẻ" (thẻ được đẩy lên **repo mẫu**, không phải repo của từng bàn). Mỗi bàn chạy `git pull --no-rebase --no-edit --allow-unrelated-histories -X ours upstream main` để tải về thư mục `incidents/S1…S8/` và file `incident-cards.md` (trước mốc này repo của bàn chưa có hai thứ đó). Các cờ `--allow-unrelated-histories -X ours` là cần vì repo tạo từ *Use this template* có lịch sử git khác repo mẫu: lệnh giữ nguyên bài của bàn và chỉ lấy thêm thẻ. Nếu chưa gắn `upstream`, xem README mục 2. Mỗi **cặp bàn** cử một người lên **bốc số** (S1–S8). Bàn **chỉ làm đúng thẻ có số bốc được**: `incidents/Sx/card.md`.
 - Ghi số đã bốc vào dòng `Thẻ đã bốc:` ở đầu `templates/gate1-decision.md` và `templates/experiment-log.md`.
 - **Việc đầu tiên, trước khi sửa bất cứ thứ gì:** `python3 -m lab10.grade --incident Sx`. Lần chạy này cho mốc **base** và mốc **prepared** của bàn trên sự cố: cổng vòng 1 đỡ được gì, còn dòng "vượt trần" nào. Ghi mã lần chạy.
 - Lab Coach đọc một câu: *"Đây là tin nhắn bàn nhận được sáng nay. Bản tiêu chí đã ký giữ nguyên. Sau 60 phút, bàn cho tôi biết quyết định Gate 1 còn đứng được không."*
@@ -184,7 +184,7 @@ Bài nộp là thư mục `submission/`. Cách làm và danh sách đầy đủ:
 
 1. Điền `submission/submission.json`: tên bàn, thành viên, số thẻ, quyết định v1 và v2, ba dòng bắt buộc.
 2. Chạy `python3 -m lab10.check_submission --collect`. Lệnh gom: code cổng vòng 1 (bản chốt) và vòng 2, config cổng kinh doanh + vận hành + pháp lý (bản vòng 1 và bản hiện tại), tiêu chí đã ký kèm hash, mã lần chạy và report của ba mốc, quyết định v1/v2, checklist 9 nhóm việc, runbook, pre-mortem, HAZOP.
-3. Sửa các dòng `THIẾU` tới khi lệnh in `ĐỦ THÀNH PHẦN`. Commit và push.
+3. Sửa các dòng `THIẾU` tới khi lệnh in `ĐỦ THÀNH PHẦN`. Commit và `git push` lên repo của bàn (tên đúng dạng `K5_Day10_3A_<TenNhom>` hoặc `K5_Day10_3B_<TenNhom>`, ví dụ `K5_Day10_3A_XXX`; TenNhom không dấu, không cách). Gửi **link repo** cho team chấm theo cách Lab Coach hướng dẫn.
 
 Lệnh này chỉ kiểm **đủ thành phần**. Team chấm sẽ chấm sau buổi học theo ba lớp: phần máy đo (bài kiểm tra ẩn, chỉ số kinh doanh và vận hành, mức chuẩn bị ở mốc prepared, hash, không làm hỏng ca đang đúng); phần người đọc (pre-mortem và HAZOP có phủ kinh doanh, con người, pháp lý; checklist có PIC; runbook; ba dòng bắt buộc; câu trả lời lúc demo); và điều kiện qua (quyết định khớp bằng chứng và tiêu chí đã ký).
 

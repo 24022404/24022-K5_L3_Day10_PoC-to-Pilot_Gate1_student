@@ -2,15 +2,15 @@
 
 Thư mục này cố ý để trống lúc đầu buổi. Đây là chỗ các **gói sự cố** sẽ xuất hiện.
 
-**Phút 125**, sau giờ nghỉ, Lab Coach phát thẻ sự cố cho cả lớp cùng lúc. Khi Lab Coach báo "đã phát":
+**Phút 125**, sau giờ nghỉ, giảng viên đẩy thẻ sự cố lên **repo mẫu**. Khi Lab Coach báo "đã phát":
 
-1. Chạy lệnh sau từ thư mục repo của bàn:
+1. Chạy lệnh sau từ thư mục repo của bàn (đúng đủ các cờ):
 
    ```bash
-   git pull --no-rebase --no-edit
+   git pull --no-rebase --no-edit --allow-unrelated-histories -X ours upstream main
    ```
 
-   Phải gõ đủ phần `--no-rebase --no-edit`. Nếu bàn đã lưu bài bằng `git commit`, lệnh `git pull` trơn sẽ báo `fatal: Need to specify how to reconcile divergent branches`. Nếu máy báo `Please tell me who you are`, làm bước 2b ở mục 2 của `README.md` rồi chạy lại.
+   Repo của bàn tạo từ *Use this template* nên có lịch sử git khác repo mẫu. `--allow-unrelated-histories` cho phép gộp lần đầu; `-X ours` giữ nguyên bài của bàn và chỉ lấy thêm thẻ. `--no-rebase --no-edit` tránh bị hỏi cách gộp hay mở trình soạn thảo. Nếu báo `'upstream' does not appear to be a git repository`, làm bước 2a ở mục 2 của `README.md` rồi chạy lại. Nếu máy báo `Please tell me who you are`, làm bước 2b rồi chạy lại. Nếu báo xung đột, chạy `git merge --abort` rồi chạy lại đúng đủ lệnh trên, hoặc gọi Lab Coach.
 
 2. Bạn sẽ thấy 8 thư mục mới `incidents/S1/` … `incidents/S8/`, và một file mới `incident-cards.md` nằm cạnh `README.md`.
 3. Mỗi **cặp bàn** (Lab Coach đã ghép sẵn) cử một người lên **bốc số**; hai bàn trong cặp làm cùng một thẻ. Số bốc được là một trong S1–S8. Lab Coach ghi số đó vào sổ.
@@ -29,4 +29,4 @@ Mỗi thư mục `incidents/Sx/` sẽ có:
 
 Không sửa các file này: chúng bị khoá, lệnh tự kiểm tra sẽ phát hiện.
 
-Nếu chạy lệnh tự kiểm tra (`python3 -m lab10.grade`) trước khi `git pull`, bạn sẽ thấy dòng `TỪ CHỐI KIỂM TRA: chưa có gói sự cố …`. Đó là đúng thiết kế, không phải lỗi máy.
+Nếu chạy lệnh tự kiểm tra (`python3 -m lab10.grade`) trước khi nhận thẻ, bạn sẽ thấy dòng `TỪ CHỐI KIỂM TRA: chưa có gói sự cố …`. Đó là đúng thiết kế, không phải lỗi máy.

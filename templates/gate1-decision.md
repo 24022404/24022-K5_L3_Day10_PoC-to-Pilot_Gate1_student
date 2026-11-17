@@ -11,7 +11,7 @@ thêm, Dừng đều có thể là quyết định đạt. Quyết định khôn
 Ba câu tự vấn trước khi viết: (1) Rủi ro còn lại có chấp nhận được như hiện trạng không? (2) Cần thêm biện pháp nào, tốn
 bao nhiêu thời gian? (3) Có phần nào của dự án không nên làm tiếp?
 
-| | **v1** (phút 100–115, TRƯỚC khi nhận thẻ sự cố) | **v2** (phút 185–200, SAU sự cố) |
+| | **v1** (phút 105–115, TRƯỚC khi nhận thẻ sự cố) | **v2** (phút 185–200, SAU sự cố) |
 |---|---|---|
 | Hash Bản tiêu chí đã ký (8 ký tự) | | phải giống v1 |
 | Hash chốt cổng vòng 1 (8 ký tự, lệnh `lab10.checkpoint` in ra) | | phải giống v1 |

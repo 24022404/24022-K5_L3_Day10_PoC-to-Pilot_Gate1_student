@@ -1,8 +1,8 @@
-# Mẫu: Pre-mortem dự án (khoảng 8 phút trong phút 50–75) → dòng Risk register
+# Mẫu: Pre-mortem dự án (khoảng 8 phút trong phút 65–85) → dòng Risk register
 
 **Bàn:** ______ · **Thẻ đã bốc:** ___
 
-*Mọi bàn làm pre-mortem ở **vòng 1** (phút 50–75), TRƯỚC khi biết sự cố, để chọn 2–3 cổng phòng ngừa sẽ code. Ở vòng 2 bàn mở lại
+*Mọi bàn làm pre-mortem ở **vòng 1** (phút 65–85), TRƯỚC khi biết sự cố, để chọn 2–3 cổng phòng ngừa sẽ code. Ở vòng 2 bàn mở lại
 phiếu này: sự cố trên thẻ có nằm trong các lý do đã viết không? Phần dòng Risk register dùng cho mọi thẻ.*
 
 *Ý tưởng pre-mortem của Gary Klein (HBR 2007): cả nhóm giả định dự án đã thất bại rồi viết lý do.

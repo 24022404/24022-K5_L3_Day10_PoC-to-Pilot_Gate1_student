@@ -7,7 +7,7 @@ bị ùn, tỉ lệ chuyển người duyệt, chi phí mỗi ticket, ROI, tổn
     python3 -m lab10.grade --incident Sx [--hidden <thư mục test ẩn>] [--expect-hash <8 ký tự Lab Coach ghi sổ>]
 
 `--incident Sx` là BẮT BUỘC: Sx là số thẻ bàn bốc được từ Lab Coach (S1..S8). Gói sự cố `incidents/Sx/` chỉ có sau khi
-`git pull` ở phút 125; chưa có thì lệnh từ chối và nói rõ việc cần làm (exit 3), không chấm gì.
+lệnh nhận thẻ (`git pull --no-rebase --no-edit --allow-unrelated-histories -X ours upstream main`) ở phút 125; chưa có thì lệnh từ chối và nói rõ việc cần làm (exit 3), không chấm gì.
 
 Kiểm 6 thứ, in bảng, ghi report JSON + Markdown có mã lần chạy vào runs/:
   1 integrity   file bị khoá (agent, tools, eval, data, gói sự cố, tests) còn nguyên so với MANIFEST
@@ -60,10 +60,10 @@ def refuse_if_not_released(incident: str) -> str | None:
     if missing:
         return (f"TỪ CHỐI KIỂM TRA: chưa có gói sự cố {incident} trên máy này (thiếu {', '.join('incidents/' + incident + '/' + f for f in missing)}).\n"
                 f"  Thẻ sự cố chỉ được phát ở phút 125 của buổi học. Việc cần làm:\n"
-                f"    1. Chờ Lab Coach báo đã phát thẻ, rồi chạy:  git pull --no-rebase --no-edit\n"
+                f"    1. Chờ Lab Coach báo đã phát thẻ, rồi chạy:  git pull --no-rebase --no-edit --allow-unrelated-histories -X ours upstream main\n"
                 f"    2. Kiểm tra đã có thư mục incidents/{incident}/ (và file incident-cards.md).\n"
                 f"    3. Chạy lại:  python3 -m lab10.grade --incident {incident}\n"
-                f"  Nếu đã git pull mà vẫn thiếu, báo Lab Coach. Chưa có gì được kiểm tra, chưa có report nào được ghi.")
+                f"  Nếu chưa gắn remote upstream, xem README mục 2 (bước 2a). Nếu đã git pull mà vẫn thiếu, báo Lab Coach. Chưa có gì được kiểm tra, chưa có report nào được ghi.")
     return None
 
 
@@ -378,7 +378,7 @@ def to_markdown(r: dict) -> str:
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--incident", metavar="Sx",
-                    help="BẮT BUỘC: số thẻ bàn bốc được (S1..S8); gói incidents/Sx/ có sau khi git pull ở phút 125")
+                    help="BẮT BUỘC: số thẻ bàn bốc được (S1..S8); gói incidents/Sx/ có sau khi nhận thẻ từ repo mẫu ở phút 125")
     ap.add_argument("--hidden", help="thư mục test ẩn (mặc định: $LAB10_HIDDEN_DIR, rồi ../lab-coach/hidden nếu có)")
     ap.add_argument("--expect-hash", help="hash tiêu chí Lab Coach ghi sổ lúc niêm phong (tiền tố)")
     ap.add_argument("--quiet", action="store_true")

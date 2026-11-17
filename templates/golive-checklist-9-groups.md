@@ -6,7 +6,7 @@
 **Bàn:** ______ · **Thẻ đã bốc:** ___
 
 Trạng thái: **Xong** (có bằng chứng) · **Chưa** · **Không áp dụng** (ghi lý do). Bằng chứng là **mã lần chạy**, tên file, hoặc số trong report.
-Điền lần 1 ở vòng 1 (phút 50–75). Cập nhật sau sự cố (phút 155–185).
+Điền lần 1 ở vòng 1 (phút 65–85). Cập nhật sau sự cố (phút 155–185).
 **Cột PIC bắt buộc:** mỗi dòng một người có tên (không ghi "cả bàn"). Dòng nào chưa có PIC thì coi như Chưa.
 
 | # | Nhóm việc | Bằng chứng lấy từ đâu (đã có sẵn trong lab) | Mục cần kiểm tra | Trạng thái | Bằng chứng | PIC |

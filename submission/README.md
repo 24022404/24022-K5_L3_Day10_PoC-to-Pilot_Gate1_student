@@ -1,6 +1,8 @@
 # submission/ · Bài nộp của bàn
 
-Mọi thứ bàn nộp nằm trong thư mục này. Một team chấm tự động sẽ chấm **sau buổi học**; tại lớp không ai cho điểm.
+Mọi thứ bàn nộp nằm trong thư mục này, trên **repo của bàn**. Một team chấm tự động sẽ chấm **sau buổi học**; tại lớp không ai cho điểm.
+
+Tên repo phải đúng dạng `K5_Day10_3A_<TenNhom>` hoặc `K5_Day10_3B_<TenNhom>` (ví dụ `K5_Day10_3A_XXX`). `3A` / `3B` là lớp của bàn. `TenNhom` viết không dấu, không khoảng trắng. Không viết thêm chữ `Lop`.
 
 ## Làm ba bước
 
@@ -27,13 +29,16 @@ python3 -m lab10.check_submission --collect
 
 Lệnh này tự chép vào đây: code cổng vòng 1 và vòng 2, config cổng, tiêu chí đã ký, báo cáo tự kiểm tra cùng ba mốc, và các phiếu bàn đã điền trong `templates/`. Sau đó nó in danh sách `ĐỦ` / `THIẾU`.
 
-**Bước 3. Sửa chỗ `THIẾU`, chạy lại lệnh tới khi thấy `ĐỦ THÀNH PHẦN`.** Rồi nộp nguyên thư mục `submission/` theo cách Lab Coach hướng dẫn. Nếu Lab Coach không nói cách khác:
+**Bước 3. Sửa chỗ `THIẾU`, chạy lại lệnh tới khi thấy `ĐỦ THÀNH PHẦN`.** Rồi đẩy lên repo của bàn và **gửi link repo** cho team chấm theo cách Lab Coach hướng dẫn:
 
 ```bash
+git add -u
 git add submission
 git commit -m "LAB 10: bài nộp"
-git push
+git push origin main
 ```
+
+Link gửi đi là URL repo của bàn, ví dụ `https://github.com/<tài-khoản>/K5_Day10_3A_XXX`. Team chấm cần đã được mời vào repo (README mục 2, bước 1). Không push lên repo mẫu.
 
 
 ## Bài nộp gồm gì

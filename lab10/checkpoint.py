@@ -1,6 +1,6 @@
 """Chốt cổng vòng 1 (mốc "prepared"): chụp lại code cổng và config cổng TRƯỚC khi bàn biết sự cố.
 
-    python3 -m lab10.checkpoint           # chốt MỘT lần, trước khi nộp quyết định v1 (phút ~100-115)
+    python3 -m lab10.checkpoint           # chốt MỘT lần, trước khi nộp quyết định v1 (phút ~105-115)
     python3 -m lab10.checkpoint verify    # kiểm bản chốt còn nguyên
 
 Lệnh chép:  lab10/guards.py               -> lab10/guards_round1.py

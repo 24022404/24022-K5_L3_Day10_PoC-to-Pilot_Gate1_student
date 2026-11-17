@@ -8,27 +8,43 @@ Trong 240 phút, bàn sẽ làm ra một bộ hồ sơ gồm: tiêu chí viết 
 
 Bạn không cần biết lập trình để đóng góp. Câu hỏi của lab không chỉ là "code đúng chưa" mà còn là "tốn bao nhiêu tiền, cần mấy người trực, ai chịu trách nhiệm". Phần đó không cần code.
 
-**Không ai chấm điểm tại lớp.** Các lệnh trong lab chỉ để bàn tự kiểm tra. Bàn nộp thư mục `submission/`, một team chấm sẽ chấm sau buổi học.
+**Không ai chấm điểm tại lớp.** Các lệnh trong lab chỉ để bàn tự kiểm tra. Cuối buổi, bàn đẩy bài lên **repo của bàn** và gửi **link repo** cho team chấm (xem mục 7 và `submission/README.md`).
 
 ## 2. Cài đặt (dưới 5 phút)
 
-**Bạn cần:** máy tính có Python 3. Lab đã được chạy thử trên Python 3.9.6 (bản có sẵn của macOS) và Python 3.15. Không cần cài thêm gì, không cần tài khoản hay khoá API. Chỉ cần mạng lúc lấy bài về, lúc nhận thẻ sự cố và lúc nộp bài.
+**Bạn cần:** máy tính có Python 3. Lab đã được chạy thử trên Python 3.9.6 (bản có sẵn của macOS) và Python 3.15. Không cần cài thêm gì, không cần tài khoản hay khoá API. Chỉ cần mạng lúc tạo và lấy repo về, lúc nhận thẻ sự cố (phút 125) và lúc đẩy bài nộp.
 
 Máy cũng cần có `git` để lấy bài về và để nhận thẻ sự cố giữa buổi. Nếu gõ `git --version` mà không ra số phiên bản, báo Lab Coach. Trên macOS mới, lệnh `python3` hoặc `git` có thể mở cửa sổ cài Command Line Tools: làm xong bước đó rồi chạy lại lệnh.
 
-**Bước 1. Lấy thư mục lab.** Mở cửa sổ dòng lệnh (Terminal trên macOS/Linux, PowerShell trên Windows). Clone repo của bàn bằng đường dẫn Lab Coach đưa:
+**Bước 1. Tạo repo của bàn từ repo mẫu.** Mỗi bàn tự tạo **một repo riêng** trên GitHub (không dùng chung repo với bàn khác, không dùng GitHub Classroom).
+
+1. Mở **repo mẫu** trên GitHub. URL repo mẫu *(blue điền sau khi đẩy repo học viên lên và bật Template repository)*: `<DÁN_URL_REPO_MẪU>`
+2. Bấm nút xanh **Use this template** (Dùng mẫu này) → **Create a new repository**.
+3. Đặt tên repo **đúng dạng** sau (không thêm chữ khác, không viết `Lop`):
+   - `K5_Day10_3A_<TenNhom>` nếu bàn thuộc lớp 3A
+   - `K5_Day10_3B_<TenNhom>` nếu bàn thuộc lớp 3B
+   - Ví dụ: `K5_Day10_3A_XXX`
+   - `TenNhom` viết **không dấu, không khoảng trắng** (ví dụ `NhomSao`, không viết `Nhóm Sao`).
+4. Chọn **Private** (riêng tư), rồi tạo repo.
+5. Mời team chấm vào repo: **Settings → Collaborators** (Người cộng tác) → **Add people**, mời tài khoản `<TÀI_KHOẢN_TEAM_CHẤM>` *(blue điền; nếu chỗ này còn chưa có tên, hỏi Lab Coach)* với quyền **Read** trở lên.
+
+**Bước 2. Lấy thư mục lab về máy.** Mở cửa sổ dòng lệnh (Terminal trên macOS/Linux, PowerShell trên Windows):
 
 ```bash
-git clone <đường dẫn repo của bàn>
+git clone https://github.com/<tài-khoản-của-bàn>/K5_Day10_3A_TenNhom.git
+cd K5_Day10_3A_TenNhom
 ```
 
-Bạn sẽ có một thư mục mới. Bên trong có file `README.md` này và các thư mục `lab10`, `data`, `tests`, `config`, `templates`, `submission`, `incidents`. Tài liệu này gọi nó là **thư mục lab**.
+Thay đường dẫn bằng URL repo **của bàn vừa tạo** (đúng tên `K5_Day10_3A_…` hoặc `K5_Day10_3B_…`). Bạn sẽ có một thư mục mới. Bên trong có file `README.md` này và các thư mục `lab10`, `data`, `tests`, `config`, `templates`, `submission`, `incidents`. Tài liệu này gọi nó là **thư mục lab**.
 
-**Bước 2. Đi vào thư mục lab:**
+**Bước 2a. Gắn repo mẫu để nhận thẻ sự cố lúc phút 125** (chỉ làm một lần, ngay sau khi clone):
 
 ```bash
-cd <tên thư mục vừa clone>
+git remote add upstream <DÁN_URL_REPO_MẪU>
+git remote -v
 ```
+
+Phải thấy `origin` trỏ về repo của bàn, và `upstream` trỏ về repo mẫu. Nếu lệnh `git remote add` báo `already exists`, không cần chạy lại; chỉ kiểm bằng `git remote -v`. Nếu quên bước này, lúc phút 125 lệnh nhận thẻ sẽ không chạy được.
 
 **Bước 2b. Cho git biết tên bàn** (chỉ cần một lần, chỉ áp dụng cho thư mục này). Không có bước này, các lệnh lưu bài (`git commit`) và nhận thẻ sẽ báo lỗi `Please tell me who you are`:
 
@@ -77,13 +93,13 @@ Nhờ vậy có **ba mốc** để so sánh:
 | Phút | Việc cần làm | File hoặc lệnh dùng |
 |---|---|---|
 | 0–15 | Ngồi theo bàn, cài đặt, **chia ba vai** (xem bên dưới), chọn một eval card và một PRD v1.1 (từ Lab 9) làm bản chung | Lệnh kiểm tra ở mục 2 |
-| 15–45 | **Khối 1: mục tiêu và đo lường.** Câu 1.1–1.6. Viết xong Bản tiêu chí vào file. **Chưa chạy trợ lý lần nào**: câu 1.5 chỉ đọc một kết quả cho sẵn | `problem-set.md` · `templates/measure-data-operationalization.md` · `templates/pair-success-criteria.md` · `config/acceptance_criteria.json` |
-| 45–50 | **Ký tiêu chí**, trước khi nhìn bất kỳ con số đánh giá nào. Đọc 8 ký tự cho Lab Coach ghi sổ. Sau khi ký không sửa tiêu chí; đừng mở rồi lưu lại file trong trình soạn thảo tự format (hash sẽ đổi) | Lệnh số 1 |
-| 50–75 | **Khối 2A: tìm rủi ro trước khi nó xảy ra.** Bây giờ mới chạy trợ lý lần đầu (mốc base). Soát một lỗi. Bản đồ dữ liệu. HAZOP mở rộng. Checklist 9 nhóm việc. Cả bàn làm pre-mortem bốn lăng kính | Lệnh số 2, 3, 4 · `templates/error-audit.md` · `templates/pair-data-map.md` · `templates/hazop.md` · `templates/golive-checklist-9-groups.md` · `templates/pre-mortem-risk-register.md` |
-| 75–100 | **Khối 2B: dựng cổng phòng ngừa.** Code 2–3 cổng. Điền các con số kinh doanh, vận hành, pháp lý. Viết runbook phần 1–3. Thử cổng bằng lệnh 2 với `--stage after` (mốc `base` bỏ qua cổng của bàn) | `lab10/guards.py` · `config/operating_gates.json` · `templates/runbook.md` · lệnh số 2 |
-| 100–115 | **Chốt cổng vòng 1, rồi quyết định v1.** Đúng thứ tự đó. Đọc 8 ký tự của lệnh chốt cho Lab Coach. Quyết định v1 dựa trên lần chạy bộ nền ở mốc `prepared` (lệnh 2 `--suite base --stage prepared`, rồi lệnh 4). Ở đây không còn bước ký: tiêu chí đã ký từ phút 45–50 | Lệnh số 5, 2, 4 · `templates/gate1-decision.md`, cột v1 |
+| 15–60 | **Khối 1: mục tiêu và đo lường.** Câu 1.1–1.6. Viết xong Bản tiêu chí vào file. **Chưa chạy trợ lý lần nào**: câu 1.5 chỉ đọc một kết quả cho sẵn | `problem-set.md` · `templates/measure-data-operationalization.md` · `templates/pair-success-criteria.md` · `config/acceptance_criteria.json` |
+| 60–65 | **Ký tiêu chí**, trước khi nhìn bất kỳ con số đánh giá nào. Đọc 8 ký tự cho Lab Coach ghi sổ. Sau khi ký không sửa tiêu chí; đừng mở rồi lưu lại file trong trình soạn thảo tự format (hash sẽ đổi) | Lệnh số 1 |
+| 65–85 | **Khối 2A: tìm rủi ro trước khi nó xảy ra.** Bây giờ mới chạy trợ lý lần đầu (mốc base). Soát một lỗi. Bản đồ dữ liệu. HAZOP mở rộng. Checklist 9 nhóm việc. Cả bàn làm pre-mortem bốn lăng kính | Lệnh số 2, 3, 4 · `templates/error-audit.md` · `templates/pair-data-map.md` · `templates/hazop.md` · `templates/golive-checklist-9-groups.md` · `templates/pre-mortem-risk-register.md` |
+| 85–105 | **Khối 2B: dựng cổng phòng ngừa.** Code 2–3 cổng. Điền các con số kinh doanh, vận hành, pháp lý. Viết runbook phần 1–3. Thử cổng bằng lệnh 2 với `--stage after` (mốc `base` bỏ qua cổng của bàn) | `lab10/guards.py` · `config/operating_gates.json` · `templates/runbook.md` · lệnh số 2 |
+| 105–115 | **Chốt cổng vòng 1, rồi quyết định v1.** Đúng thứ tự đó. Đọc 8 ký tự của lệnh chốt cho Lab Coach. Quyết định v1 dựa trên lần chạy bộ nền ở mốc `prepared` (lệnh 2 `--suite base --stage prepared`, rồi lệnh 4). Ở đây không còn bước ký: tiêu chí đã ký từ phút 60–65 | Lệnh số 5, 2, 4 · `templates/gate1-decision.md`, cột v1 |
 | 115–125 | Nghỉ | |
-| 125–135 | **Nhận thẻ sự cố.** (1) **Chờ Lab Coach báo đã phát thẻ**, rồi mới chạy `git pull --no-rebase --no-edit` (lệnh nhận thẻ, xem `incidents/README.md`). (2) Mỗi **cặp bàn** (Lab Coach đã ghép sẵn) cử một người lên **bốc số** (S1–S8); hai bàn trong cặp làm cùng một thẻ. (3) **Chỉ làm đúng thẻ có số đó; đừng mở các thẻ khác.** (4) Ghi số vào dòng `Thẻ đã bốc:` ở đầu hai phiếu. (5) **Chạy lệnh số 6 ngay, khi chưa sửa gì**: đây là mốc prepared | `git pull` · chỉ mở `incidents/Sx/card.md` của số đã bốc (trong file đó, **MẶT TRƯỚC** là triệu chứng, **MẶT SAU** là gói bằng chứng và việc cần làm). `incident-cards.md` chỉ là mục lục cả 8 thẻ · lệnh số 6 |
+| 125–135 | **Nhận thẻ sự cố.** (1) **Chờ Lab Coach báo đã phát thẻ** (thẻ được đẩy lên repo mẫu), rồi mới chạy `git pull --no-rebase --no-edit --allow-unrelated-histories -X ours upstream main` (lệnh nhận thẻ, xem `incidents/README.md`). (2) Mỗi **cặp bàn** (Lab Coach đã ghép sẵn) cử một người lên **bốc số** (S1–S8); hai bàn trong cặp làm cùng một thẻ. (3) **Chỉ làm đúng thẻ có số đó; đừng mở các thẻ khác.** (4) Ghi số vào dòng `Thẻ đã bốc:` ở đầu hai phiếu. (5) **Chạy lệnh số 6 ngay, khi chưa sửa gì**: đây là mốc prepared | lệnh nhận thẻ ở `incidents/README.md` · chỉ mở `incidents/Sx/card.md` của số đã bốc (trong file đó, **MẶT TRƯỚC** là triệu chứng, **MẶT SAU** là gói bằng chứng và việc cần làm). `incident-cards.md` chỉ là mục lục cả 8 thẻ · lệnh số 6 |
 | 135–155 | **Phân tích sự cố.** Dò ticket hỏng, đọc khối kinh doanh và vận hành của report, bảng soát lỗi, phiếu riêng của thẻ, HAZOP, fault tree | Mặt sau thẻ · `templates/error-audit.md` · `templates/hazop.md` · `templates/fault-tree.md` · lệnh số 2, 3 |
 | 155–185 | **Sửa, đúng chỗ.** Code cổng, đổi con số trong config, thêm chỉ số theo dõi. Chạy lại, tự kiểm tra | `lab10/guards.py` · `config/operating_gates.json` · `lab10/monitors.py` · lệnh số 2, 6 |
 | 185–200 | **Quyết định v2. Runbook phần 4–5. Gom bài nộp** | `templates/gate1-decision.md`, cột v2 · `templates/runbook.md` · `submission/submission.json` · lệnh số 7 |
@@ -104,7 +120,7 @@ Nhờ vậy có **ba mốc** để so sánh:
 
 Output dưới đây là output thật, chạy trên bản phát gốc. Mã lần chạy, giờ, và đường dẫn trên máy bạn sẽ khác. Chỗ ghi "…" là phần được cắt bớt cho gọn.
 
-### Lệnh 1 · Ký Bản tiêu chí chấp nhận (chỉ một lần, phút 45–50, TRƯỚC khi chạy trợ lý)
+### Lệnh 1 · Ký Bản tiêu chí chấp nhận (chỉ một lần, phút 60–65, TRƯỚC khi chạy trợ lý)
 
 ```bash
 python3 -m lab10.criteria sign
@@ -140,7 +156,7 @@ Lệnh này chỉ chạy **sau khi bàn đã ký tiêu chí** (lệnh 1). Nếu 
 
 ```
 TỪ CHỐI CHẠY ĐÁNH GIÁ: Bản tiêu chí chấp nhận chưa được ký.
-  Luật của lab: bàn ký tiêu chí TRƯỚC khi nhìn bất kỳ con số đánh giá nào (phút 45–50).
+  Luật của lab: bàn ký tiêu chí TRƯỚC khi nhìn bất kỳ con số đánh giá nào (phút 60–65).
   Việc cần làm:
     1. Điền xong config/acceptance_criteria.json (câu 1.6 của đề).
     2. Ký:  python3 -m lab10.criteria sign     rồi đọc 8 ký tự cho Lab Coach ghi sổ.
@@ -148,7 +164,7 @@ TỪ CHỐI CHẠY ĐÁNH GIÁ: Bản tiêu chí chấp nhận chưa được k�
   Chưa có gì được chạy, chưa có report nào được ghi.
 ```
 
-- `--suite base` là bộ ticket nền (22 ticket). Sau phút 125, khi đã `git pull` và bốc số, đổi thành số thẻ của bàn, ví dụ `--suite S4`.
+- `--suite base` là bộ ticket nền (22 ticket). Sau phút 125, khi đã nhận thẻ và bốc số, đổi thành số thẻ của bàn, ví dụ `--suite S4`.
 - `--stage` là mốc: `base` (chưa có cổng nào), `prepared` (cổng vòng 1 đã chốt), `after` (bản hiện tại của bàn). Mốc `base` luôn bỏ qua cổng của bàn, nên lệnh mẫu ở trên dùng để đo bộ nền. Khi đã viết cổng, chạy lại với `--stage after`. Khi đã chốt vòng 1, dùng `--stage prepared` để xem đúng bản đã chốt.
 - `--note` là ghi chú cho nhật ký: lần chạy này bạn đổi một thứ gì.
 
@@ -271,7 +287,7 @@ Lần chạy R-base-before-20261118-011514-40eeb7 · tiêu chí hash c95c6b2f ·
 
 Ví dụ này dùng bộ ngưỡng mẫu. Lệnh không quyết định hộ bàn; nó chỉ cho bạn thấy ngưỡng nào đạt, ngưỡng nào chưa.
 
-### Lệnh 5 · Chốt cổng vòng 1 (chỉ một lần, phút 100–115)
+### Lệnh 5 · Chốt cổng vòng 1 (chỉ một lần, phút 105–115)
 
 ```bash
 python3 -m lab10.checkpoint
@@ -297,18 +313,18 @@ Lệnh này tự chạy trợ lý ở cả **ba mốc**, so sánh, và viết m�
 
 Chạy nó **hai lúc**: ngay khi vừa bốc thẻ, chưa sửa gì (để thấy cổng vòng 1 đỡ được bao nhiêu), và sau mỗi lần sửa.
 
-Lệnh chỉ chạy được **sau phút 125**, khi bàn đã `git pull`. Nếu chạy sớm hơn, máy từ chối và nói rõ việc cần làm:
+Lệnh chỉ chạy được **sau phút 125**, khi bàn đã nhận thẻ từ repo mẫu. Nếu chạy sớm hơn, máy từ chối và nói rõ việc cần làm:
 
 ```
 TỪ CHỐI KIỂM TRA: chưa có gói sự cố S1 trên máy này (thiếu incidents/S1/tickets.jsonl, incidents/S1/world_patch.json).
   Thẻ sự cố chỉ được phát ở phút 125 của buổi học. Việc cần làm:
-    1. Chờ Lab Coach báo đã phát thẻ, rồi chạy:  git pull --no-rebase --no-edit
+    1. Chờ Lab Coach báo đã phát thẻ, rồi chạy:  git pull --no-rebase --no-edit --allow-unrelated-histories -X ours upstream main
     2. Kiểm tra đã có thư mục incidents/S1/ (và file incident-cards.md).
     3. Chạy lại:  python3 -m lab10.grade --incident S1
-  Nếu đã git pull mà vẫn thiếu, báo Lab Coach. Chưa có gì được kiểm tra, chưa có report nào được ghi.
+  Nếu chưa gắn remote `upstream`, xem README mục 2 (bước 2a). Nếu đã chạy lệnh nhận thẻ mà vẫn thiếu, báo Lab Coach. Chưa có gì được kiểm tra, chưa có report nào được ghi.
 ```
 
-Sau khi đã `git pull`, đây là output khi bàn **chưa viết cổng nào** (nên ba mốc giống hệt nhau):
+Sau khi đã nhận thẻ, đây là output khi bàn **chưa viết cổng nào** (nên ba mốc giống hệt nhau):
 
 ```
 # Tự kiểm tra sự cố S1 · FAIL
@@ -409,7 +425,7 @@ Sửa rồi chạy lại, tới khi dòng cuối là:
 | `lab10/helpers.py` | Các hàm tra cứu có sẵn (độ trễ theo hệ thống theo dõi, chính sách đang hiệu lực, số tiền được hoàn). Gọi được từ `guards.py` | Không |
 | `lab10/` (các file còn lại) | Trợ lý, bộ đo, bộ tự kiểm tra | **Không. File bị khoá, sửa là bị phát hiện** |
 | `data/` | Dữ liệu giả: đơn hàng, khách, hãng vận chuyển, shop, kho, chính sách, nhân viên, số liệu vận hành, 22 ticket nền | Không |
-| `incidents/` | Chỗ dành cho gói sự cố. Đầu buổi chỉ có một file `README.md` giải thích. Thẻ và dữ liệu sự cố tới ở phút 125 qua `git pull` | Không |
+| `incidents/` | Chỗ dành cho gói sự cố. Đầu buổi chỉ có một file `README.md` giải thích. Thẻ và dữ liệu sự cố tới ở phút 125 từ repo mẫu (lệnh nhận thẻ ở `incidents/README.md`) | Không |
 | `submission/` | Bài nộp của bàn. Có sẵn hướng dẫn và mẫu `submission.json` | **Có: điền `submission.json`**; phần còn lại do lệnh 7 gom |
 | `tests/` | Bài kiểm tra cài đặt ở mục 2 | Không |
 | `runs/` | Kết quả mỗi lần chạy, máy tự ghi. Mỗi lần chạy một thư mục mang mã lần chạy. `journal.jsonl` là nhật ký | Không sửa tay |
@@ -452,7 +468,7 @@ Các con số thật để dựa vào (ngân sách của Finance, hạn chờ, c
 | `golive-checklist-9-groups.md` | Câu 2.6 (lần đầu), cập nhật sau sự cố. Mỗi dòng phải có tên một người chịu trách nhiệm |
 | `pre-mortem-risk-register.md` | Vòng 1 (câu 2.7): cả bàn "giả sử đã thất bại, vì sao", đủ bốn lăng kính. Mở lại ở vòng 2. Mọi thẻ: thêm dòng rủi ro |
 | `runbook.md` | Vòng 1 (phần 1–3) và vòng 2 (phần 4–5): tờ giấy người trực ca cầm khi có chuyện |
-| `gate1-decision.md` | Quyết định v1 (phút 100–115) và v2 (phút 185–200) |
+| `gate1-decision.md` | Quyết định v1 (phút 105–115) và v2 (phút 185–200) |
 | `fault-tree.md` | Mọi thẻ: vẽ cây nguyên nhân |
 | `pair-control-map.md` | Thẻ S2 (và một dòng ở thẻ S8): ai cần giữ quyền ở thao tác ghi nào |
 | `pair-mental-models.md` | Chỉ thẻ S6: con người và hệ thống hình dung "ai chịu lỗi" khác nhau ở đâu |
@@ -470,38 +486,41 @@ Các phiếu `pair-…` và `error-audit.md` phỏng theo worksheet của Google
 5. **Không làm hỏng cái đang chạy đúng.** Ticket nào trước khi sửa trợ lý xử lý đúng thì sau khi sửa vẫn phải đúng. Chặn hết mọi thứ không phải là sửa.
 6. **Không lách bằng con số.** Thu hẹp phạm vi về 0, hay xếp thật nhiều người trực, không phải là cách sửa: độ phủ, chi phí và ROI đều được đo.
 7. **Chỉ sửa đúng các file được phép** ở mục 5.
-8. **Chỉ làm đúng thẻ đã bốc.** Chờ Lab Coach báo đã phát thẻ rồi mới `git pull`. Sau đó bạn sẽ thấy cả 8 thẻ, nhưng bàn chỉ làm thẻ có số bốc được từ Lab Coach. Chỉ mở `incidents/Sx/card.md` của số đó (MẶT TRƯỚC / MẶT SAU trong cùng file). Lab Coach đã ghi số đó vào sổ. Ghi nó vào dòng `Thẻ đã bốc:` ở đầu `templates/gate1-decision.md` và `templates/experiment-log.md`.
+8. **Chỉ làm đúng thẻ đã bốc.** Chờ Lab Coach báo đã phát thẻ rồi mới chạy lệnh nhận thẻ (`git pull --no-rebase --no-edit --allow-unrelated-histories -X ours upstream main`). Sau đó bạn sẽ thấy cả 8 thẻ, nhưng bàn chỉ làm thẻ có số bốc được từ Lab Coach. Chỉ mở `incidents/Sx/card.md` của số đó (MẶT TRƯỚC / MẶT SAU trong cùng file). Lab Coach đã ghi số đó vào sổ. Ghi nó vào dòng `Thẻ đã bốc:` ở đầu `templates/gate1-decision.md` và `templates/experiment-log.md`.
 
 Nhớ điều quan trọng nhất của buổi: **cả bốn quyết định đều có thể là quyết định tốt.** Một quyết định là tốt khi nó khớp với con số và khớp với tiêu chí đã ký. Chọn "Tiếp tục" trong khi báo cáo còn ghi vượt trần, hoặc còn ngưỡng đã ký chưa đạt, là quyết định không đạt. Chọn "Thu hẹp" hay "Dừng" có lý do và có số là quyết định đạt. Kết luận tự kiểm tra của lệnh 6 (`FAIL`, `PARTIAL`, `CHƯA`) là phần vá, được xem riêng với quyết định: không phải thấy `FAIL` là bắt buộc vá cho ra "Tiếp tục".
 
 ## 7. Nộp gì và khi nào
 
-Không ai chấm điểm trong buổi học. Mọi thứ bàn nộp nằm trong thư mục `submission/`, và được chấm sau buổi học.
+Không ai chấm điểm trong buổi học. Mọi thứ bàn nộp nằm trong thư mục `submission/` trên **repo của bàn**, và được chấm sau buổi học. Repo phải đặt tên đúng dạng `K5_Day10_3A_<TenNhom>` hoặc `K5_Day10_3B_<TenNhom>` (ví dụ `K5_Day10_3A_XXX`; TenNhom không dấu, không cách). Cuối buổi, bàn đẩy bài lên rồi **gửi link repo** cho team chấm theo cách Lab Coach hướng dẫn.
 
 | Khi nào | Làm gì |
 |---|---|
-| Phút 45–50 | Ký tiêu chí (lệnh 1), **trước khi chạy đánh giá lần nào**. Đọc 8 ký tự hash cho Lab Coach |
-| Phút 100–115 | Chốt cổng vòng 1 (lệnh 5), đọc 8 ký tự cho Lab Coach. Điền quyết định **v1** vào `templates/gate1-decision.md` |
+| Phút 60–65 | Ký tiêu chí (lệnh 1), **trước khi chạy đánh giá lần nào**. Đọc 8 ký tự hash cho Lab Coach |
+| Phút 105–115 | Chốt cổng vòng 1 (lệnh 5), đọc 8 ký tự cho Lab Coach. Điền quyết định **v1** vào `templates/gate1-decision.md` |
 | Phút 130 | Ghi số thẻ đã bốc ở dòng `Thẻ đã bốc:` đầu hai phiếu `gate1-decision.md` và `experiment-log.md` |
-| Phút 185–200 | Điền quyết định **v2** và ba dòng bắt buộc. Điền `submission/submission.json`. Chạy lệnh 7 tới khi thấy `ĐỦ THÀNH PHẦN`. Đẩy lên repo của bàn |
+| Phút 185–200 | Điền quyết định **v2** và ba dòng bắt buộc. Điền `submission/submission.json`. Chạy lệnh 7 tới khi thấy `ĐỦ THÀNH PHẦN`. Đẩy lên repo của bàn (`K5_Day10_3A_<TenNhom>` hoặc `K5_Day10_3B_<TenNhom>`) và gửi link repo cho team chấm |
 | Phút 240 | Exit ticket (cá nhân) |
 
 Bài nộp gồm: code cổng vòng 1 và vòng 2; các con số cổng kinh doanh, vận hành, pháp lý (bản vòng 1 và bản hiện tại); tiêu chí đã ký kèm hash; mã lần chạy và báo cáo của ba mốc; quyết định v1 và v2 kèm ba dòng bắt buộc và số thẻ đã bốc; checklist 9 nhóm việc; runbook; pre-mortem và HAZOP. Danh sách đầy đủ và cách điền: `submission/README.md`.
 
-Sau khi chốt cổng vòng 1 (lệnh 5) và điền quyết định v1 (phút 100–115), nên lưu một bản trên git của bàn (chưa cần đẩy lên), để còn khôi phục nếu file bị đổi và để lệnh nhận thẻ lúc phút 125 ít lỗi hơn:
+Sau khi chốt cổng vòng 1 (lệnh 5) và điền quyết định v1 (phút 105–115), nên lưu một bản trên git của bàn (chưa cần đẩy lên), để còn khôi phục nếu file bị đổi và để lệnh nhận thẻ lúc phút 125 ít lỗi hơn:
 
 ```bash
 git add config/acceptance_criteria.json config/acceptance_criteria.lock lab10/guards_round1.py config/operating_gates.round1.json config/round1.lock templates/gate1-decision.md
 git commit -m "LAB 10: đã ký tiêu chí, chốt cổng vòng 1, quyết định v1"
 ```
 
-Khi lệnh 7 in `ĐỦ THÀNH PHẦN`, nếu Lab Coach không nói cách nộp khác, đẩy thư mục `submission/` lên repo của bàn:
+Khi lệnh 7 in `ĐỦ THÀNH PHẦN`, đẩy toàn bộ bài (kể cả thư mục `submission/`) lên repo của bàn, rồi gửi **link repo** (ví dụ `https://github.com/<tài-khoản>/K5_Day10_3A_XXX`) cho team chấm theo cách Lab Coach hướng dẫn:
 
 ```bash
+git add -u
 git add submission
 git commit -m "LAB 10: bài nộp"
-git push
+git push origin main
 ```
+
+Team chấm cần được mời vào repo từ bước 1. Không push lên repo mẫu (`upstream`).
 
 
 ## 8. Câu hỏi thường gặp và cách xử lý lỗi
@@ -518,7 +537,7 @@ python3 -m unittest discover -s tests
 
 **Chữ tiếng Việt hiện thành ký tự lạ trên Windows.** Chạy `chcp 65001` trong cửa sổ dòng lệnh rồi chạy lại lệnh. (Cách này chưa được thử trên máy Windows trong lúc soạn lab; nếu không được, báo Lab Coach.)
 
-**Báo `TỪ CHỐI KIỂM TRA: chưa có gói sự cố S…` hoặc `Chưa có gói sự cố S…`.** Máy bạn chưa có thư mục `incidents/Sx` của thẻ đó. Trước phút 125 thì đây là bình thường. Sau phút 125, chạy `git pull --no-rebase --no-edit` rồi thử lại.
+**Báo `TỪ CHỐI KIỂM TRA: chưa có gói sự cố S…` hoặc `Chưa có gói sự cố S…`.** Máy bạn chưa có thư mục `incidents/Sx` của thẻ đó. Trước phút 125 thì đây là bình thường. Sau phút 125, chạy `git pull --no-rebase --no-edit --allow-unrelated-histories -X ours upstream main` rồi thử lại.
 
 **Báo `TỪ CHỐI KIỂM TRA: thiếu số thẻ` hoặc `không phải số thẻ hợp lệ`.** Lệnh 6 phải có `--incident` kèm đúng số bàn bốc được, từ `S1` tới `S8`. Ví dụ: `python3 -m lab10.grade --incident S3`.
 
@@ -528,13 +547,13 @@ python3 -m unittest discover -s tests
 
 **Báo `File operating_gates.json không phải JSON hợp lệ` hoặc `có giá trị chưa dùng được`.** Bạn gõ thiếu dấu phẩy, dấu ngoặc, hoặc điền sai kiểu. Lệnh in dòng bị lỗi và nói cần sửa gì. Chữ thì đặt trong dấu `"…"`, số thì không; `true`, `false`, `null` viết thường, không có dấu `"`.
 
-**`git pull` báo `fatal: Need to specify how to reconcile divergent branches`.** Bạn đã gõ thiếu phần sau. Chạy đúng lệnh nhận thẻ: `git pull --no-rebase --no-edit`. Lệnh này gộp thẻ mới vào bài của bàn mà không mở trình soạn thảo.
+**`git pull` báo `fatal: Need to specify how to reconcile divergent branches`.** Bạn đã gõ thiếu phần sau. Chạy đúng lệnh nhận thẻ: `git pull --no-rebase --no-edit --allow-unrelated-histories -X ours upstream main`. Lệnh này gộp thẻ mới vào bài của bàn mà không mở trình soạn thảo.
 
-**`git pull` báo `Please tell me who you are`.** Bàn chưa làm bước 2b ở mục 2. Làm bước đó rồi chạy lại lệnh nhận thẻ.
+**Lệnh nhận thẻ hoặc `git commit` báo `Please tell me who you are`.** Bàn chưa làm bước 2b ở mục 2. Làm bước đó rồi chạy lại lệnh.
 
-**`git pull` báo lỗi khác hoặc báo xung đột (conflict).** Đừng xoá gì. Gọi Lab Coach. Thẻ mới chỉ thêm file mới nên hiếm khi xung đột; Lab Coach sẽ chỉ cách.
+**Lệnh nhận thẻ báo xung đột (conflict) hoặc lỗi khác.** Đừng xoá file, đừng tự sửa dấu `<<<<<<<`. Chạy `git merge --abort` để huỷ lần gộp dở, rồi chạy đúng đủ lệnh: `git pull --no-rebase --no-edit --allow-unrelated-histories -X ours upstream main`. Cờ `-X ours` giữ nguyên bài của bàn và chỉ lấy thêm thẻ. Nếu báo `fatal: refusing to merge unrelated histories`, là thiếu `--allow-unrelated-histories`. Nếu báo `'upstream' does not appear to be a git repository`, bàn chưa làm bước 2a ở mục 2: gắn `git remote add upstream <DÁN_URL_REPO_MẪU>`. Nếu vẫn lỗi, gọi Lab Coach (đừng tự xoá gì).
 
-**Sau `git pull` tôi thấy cả 8 thẻ. Làm thẻ nào?** Chỉ thẻ có số bàn bốc được. Các thẻ khác là của bàn khác.
+**Sau khi nhận thẻ tôi thấy cả 8 thẻ. Làm thẻ nào?** Chỉ thẻ có số bàn bốc được. Các thẻ khác là của bàn khác.
 
 **Report ghi "Thẻ đã bốc … chưa ghi" hoặc "KHÔNG KHỚP".** Mở `templates/gate1-decision.md` và `templates/experiment-log.md`, sửa dòng `Thẻ đã bốc:` ở đầu file thành đúng số đã bốc (ví dụ `S3`), và chạy lệnh 6 bằng đúng số đó.
 
@@ -583,7 +602,7 @@ python3 -m unittest discover -s tests
 | **Monitor** (chỉ số theo dõi) | Một con số tính từ hoạt động của trợ lý, dùng để phát hiện sớm khi có chuyện bất thường |
 | **Ticket** | Một yêu cầu của khách gửi tới bộ phận chăm sóc khách hàng |
 | **Thẻ sự cố** | Một tình huống có chuyện xảy ra với trợ lý, đánh số S1 tới S8. Mỗi bàn bốc một số ở phút 125 và chỉ làm thẻ đó |
-| **`git pull`** | Lệnh tải phần mới nhất của repo về máy. Ở phút 125, bàn chạy `git pull --no-rebase --no-edit` để tải các thẻ sự cố về và gộp vào bài đang làm |
+| **`git pull` / lệnh nhận thẻ** | Lệnh lấy thẻ sự cố từ **repo mẫu** (`upstream`) về máy. Ở phút 125, bàn chạy `git pull --no-rebase --no-edit --allow-unrelated-histories -X ours upstream main`. Các cờ thêm là cần vì repo tạo từ mẫu có lịch sử git khác repo mẫu: lệnh giữ nguyên bài của bàn, chỉ lấy thêm thẻ. |
 | **Seed** | Số thứ tự của một lần chạy lặp. Mỗi ticket được chạy 5 lần (11, 22, 33, 44, 55) để xem trợ lý có ổn định không |
 | **Trace** | Bản ghi từng bước trợ lý đã làm với một ticket (lệnh 3) |
 | **Sổ cái** | Nơi ghi các khoản hoàn tiền đã thực hiện. Đã ghi thì coi như tiền đã đi |

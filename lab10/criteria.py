@@ -1,6 +1,6 @@
 """Bản tiêu chí chấp nhận: ký (niêm phong bằng hash) TRƯỚC khi đo, rồi giữ nguyên.
 
-    python3 -m lab10.criteria sign      # ký một lần ở phút ~45, TRƯỚC khi chạy đánh giá lần nào; in ra hash để đọc
+    python3 -m lab10.criteria sign      # ký một lần ở phút ~60, TRƯỚC khi chạy đánh giá lần nào; in ra hash để đọc
                                         # cho Lab Coach ghi sổ. lab10.eval và lab10.grade từ chối chạy khi chưa ký.
     python3 -m lab10.criteria verify    # kiểm file có còn đúng bản đã ký
 
@@ -55,7 +55,7 @@ def refuse_if_unsigned(what: str) -> str | None:
     if LOCK.exists():
         return None
     return (f"TỪ CHỐI {what}: Bản tiêu chí chấp nhận chưa được ký.\n"
-            f"  Luật của lab: bàn ký tiêu chí TRƯỚC khi nhìn bất kỳ con số đánh giá nào (phút 45–50).\n"
+            f"  Luật của lab: bàn ký tiêu chí TRƯỚC khi nhìn bất kỳ con số đánh giá nào (phút 60–65).\n"
             f"  Việc cần làm:\n"
             f"    1. Điền xong config/acceptance_criteria.json (câu 1.6 của đề).\n"
             f"    2. Ký:  python3 -m lab10.criteria sign     rồi đọc 8 ký tự cho Lab Coach ghi sổ.\n"

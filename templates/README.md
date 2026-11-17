@@ -39,7 +39,7 @@ Nguyên tắc: chỉ dùng worksheet ở chỗ nó giúp bàn làm bước đó 
 | `pre-mortem-risk-register.md` | Pre-mortem bốn lăng kính: vòng 1, mọi bàn; mở lại ở vòng 2. Dòng Risk register: mọi thẻ | Pre-mortem dự án của Gary Klein (HBR 2007); cột Risk register theo deck trang 58 |
 | `runbook.md` | Vòng 1 (phần 1–3) và vòng 2 (phần 4–5), mọi bàn; vai Vận hành và pháp lý cầm bút | Bốn câu hỏi: ai chịu trách nhiệm, nhìn gì, ngưỡng nào, làm gì; viết riêng cho LogiX-VN |
 | `golive-checklist-9-groups.md` | Câu 2.6 (lần đầu), câu 3.7 (cập nhật) | Checklist go-live 9 nhóm việc, deck trang 61 |
-| `gate1-decision.md` | Phút 100–115 (v1), 185–200 (v2) | Bốn quyết định ở deck trang 21–22; ba câu hỏi Go/No-Go của CMU |
+| `gate1-decision.md` | Phút 105–115 (v1), 185–200 (v2) | Bốn quyết định ở deck trang 21–22; ba câu hỏi Go/No-Go của CMU |
 | `experiment-log.md` | Suốt buổi | Deck trang 35 và 64 |
 
 **Bản quyền:** tài liệu khoá CMU MLiP là CC BY-SA 4.0, sách là CC BY-NC-ND 4.0. Mọi mẫu ở đây chỉ phỏng theo cách làm, tự viết lại, và ghi tên worksheet cùng nguồn ở đầu mẫu.

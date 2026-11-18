@@ -46,7 +46,7 @@ KEYS = ("pass_rate", "pass_k", "wrongful_refund_vnd", "under_refund_vnd", "wrong
 
 
 CARDS = tuple(f"S{i}" for i in range(1, 9))
-DRAWN_IN = ("templates/gate1-decision.md", "templates/experiment-log.md")
+DRAWN_IN = ("templates/form-c-incident.md",)
 
 
 def refuse_if_not_released(incident: str) -> str | None:
@@ -315,8 +315,7 @@ def to_markdown(r: dict) -> str:
          f" · {'KHÔNG ĐỔI' if r['criteria']['ok'] else 'CÓ VẤN ĐỀ: ' + str(r['criteria']['problem'])}",
          f"- Thẻ đang kiểm: `{r['incident']}` · dòng \"Thẻ đã bốc\" bàn ghi trong phiếu: "
          f"{', '.join(sorted(set(r['drawn_card']['recorded'].values()))) or '(trống)'} · {r['drawn_card']['status']}"
-         + ("" if r['drawn_card']['status'] == "khớp" else " (ghi đúng số đã bốc vào đầu `templates/gate1-decision.md`"
-            " và `templates/experiment-log.md`)"), "",
+         + ("" if r['drawn_card']['status'] == "khớp" else " (ghi đúng số đã bốc vào dòng `Thẻ đã bốc:` ở đầu `templates/form-c-incident.md`)"), "",
          "| Kiểm | Kết quả | Chi tiết |", "|---|---|---|",
          f"| 1 integrity | {mark(r['checks']['integrity'])} | file khoá bị đổi: {r['integrity']['changed'] or 'không'} |",
          f"| 2 criteria | {mark(r['checks']['criteria'])} | {r['criteria']['problem'] or 'đã ký, còn nguyên'} |",
@@ -358,6 +357,32 @@ def to_markdown(r: dict) -> str:
         L.append("| pháp lý: lần lộ dữ liệu cá nhân cho bên thứ ba | " + " | ".join(str(r[st][su]["pii_leaks"]) for st in marks) + " |")
         L.append("| pháp lý: lỗi ghi oan cho hãng (bên thứ ba) | " + " | ".join(str(r[st][su]["wrongful_carrier_faults"]) for st in marks) + " |")
         L.append("")
+        if all("by_segment" in r[st][su] for st in marks):
+            L += ["*Theo kho và hãng (cùng chỉ số, tách để đọc phân khúc; tổng không đổi). "
+                  "Điền dòng 'Kho hoặc hãng có số xấu nhất' ở Phiếu B mục B8 / Phiếu C mục C12. "
+                  "Chi tiết: mục `by_segment` trong report.json của từng mốc.*", "",
+                  "| Phân khúc | " + " | ".join(head[st] for st in marks) + " |",
+                  "|---|" + "---|" * len(marks)]
+            # Union of warehouse + carrier ids, stable order
+            ids = []
+            for kind in ("warehouse", "carrier"):
+                seen = set()
+                for st in marks:
+                    for row in r[st][su]["by_segment"].get(kind, []):
+                        key = f"{'kho' if kind == 'warehouse' else 'hãng'} {row['id']}"
+                        if key not in seen:
+                            seen.add(key)
+                            ids.append((kind, row["id"], key))
+            def cell(st, kind, sid):
+                rows = {x["id"]: x for x in r[st][su]["by_segment"].get(kind, [])}
+                x = rows.get(sid)
+                if not x:
+                    return "—"
+                return (f"pass {x['pass_rate']}; hoàn sai {x['wrongful_refund_vnd']}; "
+                        f"oan {x['wrongful_carrier_faults']}; PII {x['pii_leaks']}")
+            for kind, sid, label in ids:
+                L.append("| " + label + " | " + " | ".join(cell(st, kind, sid) for st in marks) + " |")
+            L.append("")
     q = r["after"]["visible"]["ops"]["queue"]
     if q["trust"] != "không áp dụng":
         L += [f"Niềm tin của nhân viên duyệt (after, gói nhìn thấy): **{q['trust']}**"

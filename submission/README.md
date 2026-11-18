@@ -10,12 +10,12 @@ Tên repo phải đúng dạng `K5_Day10_3A_<TenNhom>` hoặc `K5_Day10_3B_<TenN
 
 | Trường | Điền gì | Ví dụ |
 |---|---|---|
-| `team` | Tên bàn, giống hệt trong Bản tiêu chí đã ký | `"ban-07"` |
+| `team` | Tên bàn = đúng tên repo, giống hệt `team` trong Bản tiêu chí đã ký | `"K5_Day10_3A_XXX"` |
 | `members` | Họ tên các thành viên | `["Nguyễn A", "Trần B"]` |
 | `incident` | Số thẻ bàn bốc được | `"S4"` |
 | `decision_v1` | Quyết định Gate 1 bản v1 | `"Tiếp tục"` |
 | `decision_v2` | Quyết định Gate 1 bản v2 | `"Thu hẹp"` |
-| `three_lines.environment_assumption` | Một giả định về môi trường mà thiết kế của bàn dựa vào, có thể sai ngoài thực tế | một câu |
+| `three_lines.environment_assumption` (chép từ Phiếu C mục C12) | Một giả định về môi trường mà thiết kế của bàn dựa vào, có thể sai ngoài thực tế | một câu |
 | `three_lines.reduce_or_prevent` | Cổng của bàn chỉ GIẢM khả năng hay NGĂN hẳn tác hại, vì sao | một câu |
 | `three_lines.measure_in_pilot` | Vì dữ liệu ở đây là giả, cần đo lại gì khi chạy thử thật | một câu |
 
@@ -27,15 +27,15 @@ Quyết định chỉ nhận một trong bốn giá trị: `Tiếp tục`, `Thu 
 python3 -m lab10.check_submission --collect
 ```
 
-Lệnh này tự chép vào đây: code cổng vòng 1 và vòng 2, config cổng, tiêu chí đã ký, báo cáo tự kiểm tra cùng ba mốc, và các phiếu bàn đã điền trong `templates/`. Sau đó nó in danh sách `ĐỦ` / `THIẾU`.
+Lệnh này tự chép vào đây: code cổng vòng 1 và vòng 2, config cổng, tiêu chí đã ký, báo cáo tự kiểm tra cùng ba mốc, nhật ký mọi lần chạy (`runs/journal.jsonl`), và ba phiếu trong `templates/`. Sau đó nó in danh sách `ĐỦ` / `THIẾU`.
 
 **Bước 3. Sửa chỗ `THIẾU`, chạy lại lệnh tới khi thấy `ĐỦ THÀNH PHẦN`.** Rồi đẩy lên repo của bàn và **gửi link repo** cho team chấm theo cách Lab Coach hướng dẫn:
 
 ```bash
 git add -u
-git add submission
+git add submission templates README.md
 git commit -m "LAB 10: bài nộp"
-git push origin main
+git push -u origin main
 ```
 
 Link gửi đi là URL repo của bàn, ví dụ `https://github.com/<tài-khoản>/K5_Day10_3A_XXX`. Team chấm cần đã được mời vào repo (README mục 2, bước 1). Không push lên repo mẫu.
@@ -53,11 +53,10 @@ Link gửi đi là URL repo của bàn, ví dụ `https://github.com/<tài-kho�
 | `config/round1.lock`, `config/switches.json` | Dấu chốt vòng 1, công tắc | Lệnh gom |
 | `runs/grade-report.json`, `.md` | Báo cáo tự kiểm tra gần nhất | Lệnh gom |
 | `runs/<mã lần chạy>/report.json` | Ba mốc: base, prepared, after | Lệnh gom |
-| `docs/gate1-decision.md` | Quyết định v1 và v2, có dòng `Thẻ đã bốc` | Bàn điền trong `templates/` |
-| `docs/golive-checklist-9-groups.md` | Checklist 9 nhóm việc, mỗi dòng có người chịu trách nhiệm | Bàn điền trong `templates/` |
-| `docs/runbook.md` | Runbook vận hành | Bàn điền trong `templates/` |
-| `docs/pre-mortem-risk-register.md`, `docs/hazop.md` | Pre-mortem và HAZOP | Bàn điền trong `templates/` |
-| `docs/fault-tree.md`, `docs/error-audit.md`, `docs/experiment-log.md` | Không bắt buộc | Bàn điền trong `templates/` |
+| `runs/journal.jsonl` | Nhật ký mọi lần chạy `eval` / `grade` (mã lần chạy có ngày giờ); team chấm dùng để kiểm "ký trước khi đo" | Lệnh gom |
+| `docs/form-a-criteria.md` | Phiếu A: tiêu chí và cách đo (khối 1) | Bàn điền trong `templates/` |
+| `docs/form-b-evaluation-gates.md` | Phiếu B: lần chạy đầu, soát lỗi, bản đồ dữ liệu, HAZOP vòng 1, checklist 9 nhóm, pre-mortem, cổng vòng 1, runbook 1–3, giờ cao điểm, quyết định v1 | Bàn điền trong `templates/` |
+| `docs/form-c-incident.md` | Phiếu C: dòng `Thẻ đã bốc`, phân tích sự cố, phần riêng theo thẻ, HAZOP của thẻ, fault tree, bảng sửa, chỉ số theo dõi, risk register, runbook 4–5, quyết định v2 | Bàn điền trong `templates/` |
 | `manifest.json` | Danh sách file kèm dấu vân tay, mã lần chạy | Lệnh gom |
 
 Bàn điền phiếu ngay trong thư mục `templates/`. Đừng sửa các bản chép trong `submission/docs/`: lần gom sau sẽ ghi đè.

@@ -6,11 +6,11 @@
 Bài nộp nằm trong thư mục submission/ (xem submission/README.md):
   submission.json    bàn tự điền: tên bàn, thành viên, số thẻ, quyết định v1 và v2, ba dòng bắt buộc
   Nộp: đẩy lên repo của bàn đặt tên đúng dạng K5_Day10_3A_<TenNhom> hoặc K5_Day10_3B_<TenNhom>
-  (ví dụ K5_Day10_3A_XXX; TenNhom không dấu, không cách) rồi gửi link repo cho team chấm.
+  (ví dụ K5_Day10_3A_TenNhom; TenNhom không dấu, không cách) rồi gửi link repo cho team chấm.
   code/              cổng vòng 1 (bản đã chốt) và cổng vòng 2, chỉ số theo dõi
   config/            cổng kinh doanh + vận hành + pháp lý (vòng 1 và hiện tại), tiêu chí đã ký kèm hash
-  runs/              báo cáo tự kiểm tra và ba mốc base / prepared / after (kèm mã lần chạy)
-  docs/              quyết định Gate 1, checklist 9 nhóm việc, runbook, pre-mortem, HAZOP, ...
+  runs/              báo cáo tự kiểm tra, ba mốc base / prepared / after (kèm mã lần chạy), journal.jsonl (mọi lần chạy)
+  docs/              ba phiếu: form-a-criteria.md, form-b-evaluation-gates.md, form-c-incident.md
   manifest.json      do lệnh --collect ghi: hash từng file, mã lần chạy, thời điểm gom
 
 Exit 0 = đủ thành phần · 1 = còn thiếu (lệnh in rõ thiếu gì và làm gì tiếp). LOCKED: do not edit.
@@ -37,8 +37,9 @@ CODE = {"code/guards_round1.py": "lab10/guards_round1.py", "code/guards.py": "la
         "code/monitors.py": "lab10/monitors.py"}
 CONFIG = {f"config/{n}": f"config/{n}" for n in ("operating_gates.round1.json", "operating_gates.json", "switches.json",
                                                    "acceptance_criteria.json", "acceptance_criteria.lock", "round1.lock")}
-DOCS_REQUIRED = ("gate1-decision.md", "golive-checklist-9-groups.md", "runbook.md", "pre-mortem-risk-register.md", "hazop.md")
-DOCS_OPTIONAL = ("fault-tree.md", "error-audit.md", "experiment-log.md")
+DOCS_REQUIRED = ("form-a-criteria.md", "form-b-evaluation-gates.md", "form-c-incident.md")
+DOCS_OPTIONAL: tuple = ()
+DRAWN_FORM = "form-c-incident.md"          # dòng `Thẻ đã bốc:` nằm ở đầu Phiếu C
 THREE = ("environment_assumption", "reduce_or_prevent", "measure_in_pilot")
 BLANK = {"team": "", "members": [], "incident": "", "decision_v1": "", "decision_v2": "",
          "three_lines": {k: "" for k in THREE}}
@@ -58,6 +59,23 @@ def _form() -> dict:
 def latest_grade(incident: str) -> Path | None:
     reps = sorted(RUNS.glob(f"R-{incident}-grade-*.json"), key=lambda p: p.stat().st_mtime) if RUNS.exists() else []
     return reps[-1] if reps else None
+
+
+def first_eval_time(journal: Path) -> str | None:
+    """Thời điểm (ISO, giờ máy) của lần chạy sớm nhất trong journal, đọc từ mã lần chạy R-<bộ>-<mốc>-YYYYMMDD-HHMMSS-<hash>."""
+    if not journal.exists():
+        return None
+    stamps = []
+    for line in journal.read_text(encoding="utf-8").splitlines():
+        try:
+            rid = json.loads(line).get("run_id", "")
+        except json.JSONDecodeError:
+            continue
+        m = re.search(r"-(\d{8})-(\d{6})-", rid)
+        if m:
+            d, t = m.groups()
+            stamps.append(f"{d[:4]}-{d[4:6]}-{d[6:]}T{t[:2]}:{t[2:4]}:{t[4:]}")
+    return min(stamps) if stamps else None
 
 
 def collect() -> list[str]:
@@ -89,6 +107,10 @@ def collect() -> list[str]:
                 (SUB / "runs" / rid).mkdir(exist_ok=True)
                 shutil.copyfile(src, SUB / "runs" / rid / "report.json")
         did.append(f"chép báo cáo tự kiểm tra {rep.name} và {len(runs)} mốc: {runs}")
+    if (RUNS / "journal.jsonl").exists():            # nhật ký MỌI lần chạy: bằng chứng đã commit cho "ký trước khi đo"
+        (SUB / "runs").mkdir(exist_ok=True)
+        shutil.copyfile(RUNS / "journal.jsonl", SUB / "runs" / "journal.jsonl")
+        did.append("chép runs/journal.jsonl -> submission/runs/journal.jsonl")
     files = {p.relative_to(SUB).as_posix(): _sha(p) for p in sorted(SUB.rglob("*"))
              if p.is_file() and p.name not in ("manifest.json", "README.md")}
     (SUB / "manifest.json").write_text(json.dumps({
@@ -180,15 +202,24 @@ def check() -> list[tuple[bool, str, str]]:
         filled = p.exists() and _sha(p) != pristine.get(n)
         add(filled, f"phiếu docs/{n} đã điền", f"điền templates/{n} rồi --collect lại" if p.exists() else
             f"thiếu file: điền templates/{n} rồi chạy --collect")
-    gd = SUB / "docs" / "gate1-decision.md"
+    gd = SUB / "docs" / DRAWN_FORM
     if gd.exists():
         m = re.search(r"Thẻ đã bốc:\**\s*`?(S[1-8])\b", gd.read_text(encoding="utf-8"))
-        add(bool(m) and m.group(1) == inc, f"dòng 'Thẻ đã bốc' trong gate1-decision.md: {m.group(1) if m else '(trống)'}",
-            "ghi đúng số thẻ vào dòng `Thẻ đã bốc:` ở đầu templates/gate1-decision.md rồi --collect lại")
+        add(bool(m) and m.group(1) == inc, f"dòng 'Thẻ đã bốc' trong {DRAWN_FORM}: {m.group(1) if m else '(trống)'}",
+            f"ghi đúng số thẻ vào dòng `Thẻ đã bốc:` ở đầu templates/{DRAWN_FORM} rồi --collect lại")
     for n in DOCS_OPTIONAL:
         p = SUB / "docs" / n
         if not (p.exists() and _sha(p) != pristine.get(n)):
             rows.append((True, f"(không bắt buộc) phiếu docs/{n} chưa điền", ""))
+    first = first_eval_time(SUB / "runs" / "journal.jsonl")
+    signed_at = None
+    if lock.exists():
+        signed_at = json.loads(lock.read_text(encoding="utf-8")).get("signed_at")
+    commit_at = criteria.sign_commit_time()
+    if first:
+        late = [n for n, t in (("lúc ký", signed_at), ("commit 'Sign acceptance criteria'", commit_at)) if t and first < t]
+        rows.append((True, f"lần đánh giá đầu tiên (submission/runs/journal.jsonl): {first}; ký: {signed_at or '?'}; commit ký: {commit_at or '?'}"
+                     + (f" · CẢNH BÁO: chạy đánh giá TRƯỚC {', '.join(late)}; team chấm sẽ xem xét" if late else ""), ""))
     add((SUB / "manifest.json").exists(), "có submission/manifest.json", "chạy --collect")
     if (SUB / "manifest.json").exists():
         man = json.loads((SUB / "manifest.json").read_text(encoding="utf-8"))["files"]
@@ -212,7 +243,7 @@ def main(argv=None):
     if missing:
         print(f"CHƯA ĐỦ: còn {len(missing)} mục. Làm theo dòng '->' rồi chạy lại lệnh này.")
         sys.exit(1)
-    print("ĐỦ THÀNH PHẦN. Đẩy lên repo của bàn (tên đúng dạng K5_Day10_3A_<TenNhom> hoặc K5_Day10_3B_<TenNhom>, ví dụ K5_Day10_3A_XXX; TenNhom không dấu, không cách) rồi gửi link repo cho team chấm theo cách Lab Coach hướng dẫn.")
+    print("ĐỦ THÀNH PHẦN. Đẩy lên repo của bàn (tên đúng dạng K5_Day10_3A_<TenNhom> hoặc K5_Day10_3B_<TenNhom>, ví dụ K5_Day10_3A_TenNhom; TenNhom không dấu, không cách) rồi gửi link repo cho team chấm theo cách Lab Coach hướng dẫn.")
 
 
 if __name__ == "__main__":

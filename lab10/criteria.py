@@ -23,7 +23,7 @@ REQUIRED = ("pass_rate_min", "pass_k_min", "wrongful_refund_vnd_max", "wrongful_
 SIGN_COMMIT = "Sign acceptance criteria"
 SIGN_GIT = (
     "git add config/acceptance_criteria.json config/acceptance_criteria.lock "
-    "&& git commit -m 'Sign acceptance criteria' && git push"
+    "&& git commit -m 'Sign acceptance criteria' && git push -u origin main"
 )
 
 
@@ -86,6 +86,20 @@ def check_sign_git_history(root: Path = ROOT) -> tuple[bool, str, str]:
                 "file tiêu chí đã đổi so với commit 'Sign acceptance criteria'",
                 "trả về đúng bản lúc ký (`git checkout -- config/acceptance_criteria.json`) rồi --collect lại")
     return True, "tiêu chí giữ nguyên từ commit 'Sign acceptance criteria'", ""
+
+
+def sign_commit_time(root: Path = ROOT) -> str | None:
+    """Thời điểm (giờ máy, ISO, không múi giờ) của commit 'Sign acceptance criteria' đầu tiên; None nếu không có git / chưa có commit."""
+    if not is_git_repo(root):
+        return None
+    r = _git(["log", "--format=%cI", "--grep=^" + SIGN_COMMIT + "$"], root)
+    lines = [ln.strip() for ln in (r.stdout or "").splitlines() if ln.strip()] if r.returncode == 0 else []
+    if not lines:
+        return None
+    try:
+        return datetime.fromisoformat(lines[-1]).astimezone().replace(tzinfo=None).isoformat(timespec="seconds")
+    except ValueError:
+        return None
 
 
 def status(expect_hash: str | None = None) -> dict:

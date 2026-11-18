@@ -193,6 +193,63 @@ def summarize(trials: list[dict]) -> dict:
     }
 
 
+def segment_breakdown(trials: list[dict], world_data: dict) -> dict:
+    """Per-warehouse and per-carrier view of the same metrics. Does not change overall totals."""
+    orders = {o["order_id"]: o for o in world_data.get("orders", [])}
+
+    def warehouse_of(t: dict) -> str:
+        wh = t.get("warehouse")
+        if wh:
+            return str(wh)
+        oid = (t.get("ticket") or {}).get("order_id")
+        o = orders.get(oid) or {}
+        return str(o.get("warehouse_id") or "?")
+
+    def carrier_of(t: dict) -> str:
+        oid = (t.get("ticket") or {}).get("order_id")
+        o = orders.get(oid) or {}
+        for p in o.get("parcels") or []:
+            if p.get("carrier_id"):
+                return str(p["carrier_id"])
+        return "?"
+
+    def rows(keyfn):
+        buckets: dict[str, list[dict]] = {}
+        for t in trials:
+            buckets.setdefault(keyfn(t), []).append(t)
+        out = []
+        for key in sorted(buckets):
+            ts = buckets[key]
+            n = len(ts)
+            out.append({
+                "id": key,
+                "trials": n,
+                "pass_rate": round(sum(t["pass"] for t in ts) / max(1, n), 4),
+                "wrongful_refund_vnd": sum(t["wrongful_refund_vnd"] for t in ts),
+                "wrongful_carrier_faults": sum(len(t["wrongful_faults"]) for t in ts),
+                "pii_leaks": sum(t["pii_leaks"] for t in ts),
+            })
+        return out
+
+    return {"warehouse": rows(warehouse_of), "carrier": rows(carrier_of)}
+
+
+def segment_text(seg: dict) -> str:
+    """Plain-Vietnamese block printed after the overall metrics. Overall numbers stay unchanged."""
+    L = ["  -- theo kho và hãng (cùng các chỉ số trên, tách để đọc phân khúc; tổng không đổi) --",
+         "  Dùng khi điền dòng 'Kho hoặc hãng có số xấu nhất' ở Phiếu B mục B8 (v1) và Phiếu C mục C12 (v2): templates/form-b-evaluation-gates.md, templates/form-c-incident.md."]
+
+    def fmt(title: str, rows: list[dict]) -> None:
+        L.append(f"  {title:6}  trials  pass_rate  hoàn sai   lỗi hãng oan  lộ PII")
+        for r in rows:
+            L.append(f"  {r['id']:6}  {r['trials']:6}  {r['pass_rate']:<9}  {r['wrongful_refund_vnd']:<9}  "
+                     f"{r['wrongful_carrier_faults']:<13}  {r['pii_leaks']}")
+
+    fmt("kho", seg.get("warehouse") or [])
+    fmt("hãng", seg.get("carrier") or [])
+    return "\n".join(L)
+
+
 def ops_text(o: dict) -> str:
     """Business / operations block, in plain Vietnamese."""
     q, c, rf = o["queue"], o["cost"], o["refund"]
@@ -236,7 +293,8 @@ def evaluate(suite: str, stage: str, pack_dir=None) -> tuple[dict, list[dict]]:
     o = ops.summarize_ops(trials, world_data, gates, out)          # also fills the queue fields of every trial
     mons = importlib.import_module("lab10.monitors")
     return {"suite": suite, "stage": stage, **summarize(trials), **ops.flat(o), "ops": o,
-            "monitors": run_monitors(trials, mons)}, trials
+            "monitors": run_monitors(trials, mons),
+            "by_segment": segment_breakdown(trials, world_data)}, trials
 
 
 def write_run(report: dict, trials: list[dict], note: str) -> Path:
@@ -282,6 +340,7 @@ def main(argv=None):
               "monitors"):
         print(f"  {k:26} {r[k]}")
     print(ops_text(r["ops"]))
+    print(segment_text(r.get("by_segment") or {}))
     if r["failed"]:
         print("  hỏng:", ", ".join(r["failed"][:20]), "..." if len(r["failed"]) > 20 else "")
     print(f"Report: {out / 'report.json'}\nNhật ký: {RUNS / 'journal.jsonl'}")

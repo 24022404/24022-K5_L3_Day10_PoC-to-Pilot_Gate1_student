@@ -20,7 +20,7 @@ Lab đã được chạy thử với Python 3.9.6 có sẵn trên macOS và Pyth
 
 Gõ `git --version` để kiểm tra Git. Nếu không hiện số phiên bản, báo Lab Coach. Trên macOS mới, `python3` hoặc `git` có thể mở cửa sổ cài Command Line Tools. Cài xong thì chạy lại. Trên Windows, thử `python` nếu `python3` không chạy.
 
-Trưởng nhóm bấm **Use this template** (không dùng **Fork**) ở repo mẫu `https://github.com/VinUni-AI20k/K5_L3_Day10_PoC-to-Pilot_Gate1_student`. Đặt tên theo dạng `K5_Day10_<3A|3B>_<TenNhom>`, chọn đúng lớp, ví dụ `K5_Day10_3A_XXX`. Viết phần `TenNhom` không dấu, không khoảng trắng, như `NhomSao`. Chọn **Private** (Riêng tư): repo Public hay fork của repo mẫu (luôn công khai) thì ai cũng xem được bài của bàn. Vào **Settings → Collaborators** (Người cộng tác) → **Add people** (Thêm người) để mời `<TÀI_KHOẢN_TEAM_CHẤM>` với quyền **Read** (Đọc) trở lên. Nếu thiếu thông tin, hỏi Lab Coach.
+Trưởng nhóm bấm **Use this template** (không dùng **Fork**) ở repo mẫu `https://github.com/VinUni-AI20k/K5_L3_Day10_PoC-to-Pilot_Gate1_student`. Đặt tên theo dạng `K5-<L3A|L3B>-DAY10-<TenNhom>-PoCtoPilotGate1`, chọn đúng lớp, ví dụ `K5-L3A-DAY10-XXX-PoCtoPilotGate1`. Viết phần `TenNhom` không dấu, không khoảng trắng, như `NhomSao`. Chọn **Private** (Riêng tư): repo Public hay fork của repo mẫu (luôn công khai) thì ai cũng xem được bài của bàn. Vào **Settings → Collaborators** (Người cộng tác) → **Add people** (Thêm người) để mời `<TÀI_KHOẢN_TEAM_CHẤM>` với quyền **Read** (Đọc) trở lên. Nếu thiếu thông tin, hỏi Lab Coach.
 
 Mở Terminal trên macOS hoặc Linux, hoặc PowerShell trên Windows. Chạy mọi lệnh từ thư mục lab, nơi có `README.md`, sau khi đã clone và vào thư mục của bàn. Nếu gặp `already exists` khi gắn `upstream`, chỉ cần dùng `git remote -v` để kiểm tra. `origin` trỏ về repo của bàn và `upstream` trỏ về repo mẫu. Thiếu `upstream` thì không nhận được thẻ ở phút 125.
 
@@ -61,7 +61,8 @@ OK
 
 | Thư mục / file | Nó là gì | Có được sửa không |
 |---|---|---|
-| `README.md` | Hướng dẫn chính và bảng thành viên | Điền bảng họ tên và mã học viên |
+| `README.md` | Hướng dẫn chính | Không cần sửa |
+| `TEAM.md` | Bảng thành viên và mục cá nhân | Điền họ tên, MSSV, vai; mỗi người một mục |
 | `docs/guide.md` | Hướng dẫn tra cứu | Không cần |
 | `problem-set.md` | Đề bài: các câu của từng khối, thời gian, người cầm bút | Không |
 | `templates/` | Ba phiếu cần điền: `form-a-criteria.md`, `form-b-evaluation-gates.md`, `form-c-incident.md` | **Điền trực tiếp vào phiếu, giữ nguyên cấu trúc và câu hỏi của bản mẫu** |
@@ -80,7 +81,7 @@ OK
 | `tests/` | Bài kiểm tra cài đặt ở mục 2 | Khoá bằng hash |
 | `runs/` | Kết quả mỗi lần chạy, máy tự ghi. Mỗi lần chạy một thư mục mang mã lần chạy. `journal.jsonl` là nhật ký | Không sửa tay |
 
-Ngoài bảng thành viên trong README, bàn làm bài ở sáu chỗ gồm `lab10/guards.py`, `lab10/monitors.py`, `config/operating_gates.json`, `config/acceptance_criteria.json` (ký một lần), ba phiếu trong `templates/` và `submission/submission.json`.
+Ngoài `TEAM.md`, bàn làm bài ở sáu chỗ gồm `lab10/guards.py`, `lab10/monitors.py`, `config/operating_gates.json`, `config/acceptance_criteria.json` (ký một lần), ba phiếu trong `templates/` và `submission/submission.json`.
 
 Kỹ sư cổng chỉ sửa hai file code là `lab10/guards.py` và `lab10/monitors.py`. Hệ thống phát hiện thay đổi ở các file bị khoá.
 

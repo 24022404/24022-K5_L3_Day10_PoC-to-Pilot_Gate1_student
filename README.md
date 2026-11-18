@@ -1,5 +1,11 @@
 # LAB 10 · From PoC to Pilot (Gate 1)
 
+> **Bài nhóm** (một bàn 4–5 người, một repo chung). **Mỗi thành viên tự nộp link repo của bàn trên LMS** trước deadline (GMT+7): lab sáng 23h59 cùng ngày, lab chiều/tối 11h59 hôm sau. Chi tiết: [`SUBMISSION.md`](SUBMISSION.md).
+>
+> Nộp gì, khi nào: [`SUBMISSION.md`](SUBMISSION.md) · Chấm thế nào: [`RUBRIC.md`](RUBRIC.md) · Các mốc tự kiểm tra: [`CHECKPOINTS.md`](CHECKPOINTS.md) · Luật chung (AI, liêm chính, nộp muộn): [`RULES.md`](RULES.md) · Thành viên: [`TEAM.md`](TEAM.md).
+
+**Mục tiêu.** Sau buổi học, bàn biết viết tiêu chí chấp nhận trước khi đo, tìm rủi ro bằng pre-mortem và HAZOP, dựng cổng phòng ngừa bằng code, con số và con người, rồi ra quyết định Gate 1 khớp bằng chứng. **Thời lượng:** 240 phút. **Chuẩn bị:** Python 3 và Git (mục 2).
+
 Đề bài: [`problem-set.md`](problem-set.md). Ba phiếu cần điền: [`templates/`](templates/README.md). Tra cứu lệnh, lỗi, từ ngữ: [`docs/guide.md`](docs/guide.md).
 
 ## 1. Tổng quan buổi học
@@ -22,7 +28,7 @@ Lab hỏi cả code đã đúng chưa, tốn bao nhiêu tiền, cần mấy ngư
 | `config/operating_gates.json` (mục `business`, `operations`, `legal`) | Sản phẩm và kinh doanh · Vận hành và pháp lý | Điền con số và tên người, không cần code |
 | `lab10/monitors.py` (dict `MONITORS`) | Kỹ sư cổng | Thêm ít nhất một chỉ số theo dõi ở vòng 2 |
 | `submission/submission.json` | Vận hành và pháp lý | Điền để gom bài cuối buổi |
-| Bảng thành viên ở mục 2 của README này | trưởng nhóm | Họ tên và mã học viên mọi thành viên |
+| `TEAM.md` | trưởng nhóm · từng thành viên | Bảng họ tên, MSSV, vai; mỗi người một mục cá nhân |
 
 ## 2. Cài đặt (dưới 5 phút)
 
@@ -31,15 +37,15 @@ Bạn cần Python 3 và Git; không cần cài gói, tài khoản hay khoá API
 **Bước 1. Trưởng nhóm tạo repo của bàn trên GitHub.**
 
 1. Mở repo mẫu `https://github.com/VinUni-AI20k/K5_L3_Day10_PoC-to-Pilot_Gate1_student`, bấm **Use this template** → **Create a new repository**. Không dùng **Fork**.
-2. Đặt tên đúng dạng `K5_Day10_<3A|3B>_<TenNhom>`, ví dụ `K5_Day10_3A_XXX`. `3A`/`3B` là lớp của bàn. `TenNhom` không dấu, không khoảng trắng (viết `NhomSao`, không viết “Nhóm Sao”).
+2. Đặt tên đúng dạng `K5-<L3A|L3B>-DAY10-<TenNhom>-PoCtoPilotGate1`, ví dụ `K5-L3A-DAY10-XXX-PoCtoPilotGate1`. `L3A`/`L3B` là lớp của bàn (lớp 3A hoặc 3B). `TenNhom` không dấu, không khoảng trắng (viết `NhomSao`, không viết “Nhóm Sao”).
 3. Chọn **Private** (Riêng tư). Repo Public, hay một fork của repo mẫu (fork của repo công khai luôn công khai, không đổi sang riêng tư được), thì ai cũng xem được tiêu chí, cổng và bài làm của bàn.
 4. **Settings → Collaborators → Add people**: mời `<TÀI_KHOẢN_TEAM_CHẤM>` với quyền **Read** trở lên. Nếu chưa có tên tài khoản, hỏi Lab Coach. Mời thêm các bạn trong bàn nếu cần.
 
 **Bước 2. Lấy repo về máy** (thay bằng URL repo bàn vừa tạo):
 
 ```bash
-git clone https://github.com/<tài-khoản-trưởng-nhóm>/K5_Day10_3A_XXX.git
-cd K5_Day10_3A_XXX
+git clone https://github.com/<tài-khoản-trưởng-nhóm>/K5-L3A-DAY10-XXX-PoCtoPilotGate1.git
+cd K5-L3A-DAY10-XXX-PoCtoPilotGate1
 ```
 
 Mọi lệnh trong lab chạy từ thư mục này (nơi có `README.md`).
@@ -58,15 +64,7 @@ git config user.name "<mã học viên của trưởng nhóm>"
 git config user.email "<mã học viên>@example.com"
 ```
 
-**Bước 3. Điền bảng thành viên** (họ tên đầy đủ và mã học viên của **mọi** thành viên; thêm dòng nếu cần):
-
-| Họ và tên | Mã học viên | Vai |
-|---|---|---|
-| | | |
-| | | |
-| | | |
-| | | |
-| | | |
+**Bước 3. Điền bảng thành viên trong [`TEAM.md`](TEAM.md)** (họ tên đầy đủ, MSSV và vai của **mọi** thành viên; thêm dòng nếu cần). Mỗi người tự viết mục `## HoVaTen-MSSV` của mình trước khi nộp.
 
 **Bước 4. Chạy bài kiểm tra công khai.** Xong khi thấy `Ran 13 tests` và `OK`. Trên Windows, thử `python` nếu `python3` không chạy.
 
@@ -85,13 +83,13 @@ Ba mốc đo: `base` bỏ qua cổng của bàn; `prepared` dùng cổng vòng 1
 ### Phút 0–15 · Cài đặt và chia vai
 
 - **Làm:** mục 2 ở trên; chọn một eval card và một PRD v1.1 từ Lab 9 làm bản chung; chia ba vai: **Kỹ sư cổng** (lệnh, trace, cổng, chỉ số theo dõi) · **Sản phẩm và kinh doanh** (tiêu chí, chi phí, quyết định) · **Vận hành và pháp lý** (người trực, trách nhiệm, dữ liệu cá nhân, runbook, bài nộp).
-- **Điền:** bảng thành viên ở mục 2.
+- **Điền:** bảng thành viên trong `TEAM.md`.
 - **Xong khi:** `Ran 13 tests … OK`; `git remote -v` có `origin` và `upstream`.
 
 ### Phút 15–65 · Khối 1: tiêu chí, rồi ký · **Phiếu A**
 
 - **Làm (15–60):** câu 1.1–1.2 (Phiếu A mục A1) · câu 1.3–1.4, bảng thước đo → dữ liệu → cách tính (A2) · câu 1.5, đọc khoảng tin cậy từ số minh hoạ trong đề (A3) · câu 1.6, câu tiêu chí "Nếu … thì chúng tôi sẽ …", bốn câu soát, hai câu ranh giới đầu ra (A4). **Chưa chạy trợ lý.**
-- **Sửa:** `config/acceptance_criteria.json`: `team` (= đúng tên repo của bàn, ví dụ `K5_Day10_3A_XXX`), `signed_by`; trong `required`: `pass_rate_min`, `pass_k_min`, `wrongful_refund_vnd_max`, `wrongful_carrier_faults_max`, `pii_leaks_max`; `nice_to_have.escalation_rate_max`; trong `business_ops`: `cost_per_ticket_vnd_max`, `roi_min`, `queue_stuck_max`; `stop_condition`; bốn dòng `decision_rule`. Xem cách viết ở `config/acceptance_criteria.example.json`, đừng chép ngưỡng.
+- **Sửa:** `config/acceptance_criteria.json`: `team` (= đúng tên repo của bàn, ví dụ `K5-L3A-DAY10-XXX-PoCtoPilotGate1`), `signed_by`; trong `required`: `pass_rate_min`, `pass_k_min`, `wrongful_refund_vnd_max`, `wrongful_carrier_faults_max`, `pii_leaks_max`; `nice_to_have.escalation_rate_max`; trong `business_ops`: `cost_per_ticket_vnd_max`, `roi_min`, `queue_stuck_max`; `stop_condition`; bốn dòng `decision_rule`. Xem cách viết ở `config/acceptance_criteria.example.json`, đừng chép ngưỡng.
 - **Lệnh (60–65), ngay khi điền xong, trước khi chạy đánh giá lần nào** (lệnh 1, rồi đúng dòng Git máy in ra):
 
 ```bash
@@ -214,7 +212,7 @@ python3 -m lab10.grade --incident Sx
 
 **185–200 · Quyết định v2 và gom bài.**
 
-- **Điền:** C12 (cột v2, mục "Chỉ ở v2", ba dòng bắt buộc). Điền `submission/submission.json` (`team` giống tiêu chí đã ký, `members`, `incident`, `decision_v1`, `decision_v2`, ba câu `three_lines` chép từ C12).
+- **Điền:** C12 (cột v2, mục "Chỉ ở v2", ba dòng bắt buộc). Điền `submission/submission.json` (`team` giống tiêu chí đã ký, `members` dạng `"HoVaTen-MSSV"`, `incident`, `decision_v1`, `decision_v2`, ba câu `three_lines` chép từ C12).
 - **Lệnh 7:** `python3 -m lab10.check_submission --collect`. Sửa từng dòng `[THIẾU]` theo hướng dẫn `->` rồi chạy lại.
 - **Xong khi:** dòng cuối là `ĐỦ THÀNH PHẦN`; đã đẩy bài (lệnh ở mục 6).
 
@@ -222,7 +220,7 @@ python3 -m lab10.grade --incident Sx
 
 - **200–230 · Demo ba mốc.** Hai bàn cùng thẻ ghép cặp, mỗi bàn 5 phút: chiếu ba cột `base · prepared · after` của report lệnh 6, nói cổng vòng 1 đã đỡ được gì, phần sửa vòng 2 là code, con số hay người, và con số nào đỡ cho v2. Bàn kia phản biện: đưa một ticket hiểm (câu 2.8) để chạy bằng lệnh 3 với `--adhoc`, hoặc đổi thử một con số trong `config/operating_gates.json` rồi chạy `python3 -m lab10.eval --suite Sx --stage after --note "demo"`. Sau đó 2–3 bàn trình bày trước lớp.
 - **Sau demo:** trả mọi con số đã đổi thử về bản v2, chạy lại `python3 -m lab10.grade --incident Sx` và lệnh 7 (nếu không, lệnh 7 báo "báo cáo không chạy trên đúng code và config hiện tại").
-- **230–240 · Nộp.** Đẩy bài lần cuối (mục 6), gửi link repo cho team chấm, viết exit ticket cá nhân.
+- **230–240 · Nộp.** Đẩy bài lần cuối (mục 6), gửi link repo cho team chấm, mỗi người viết exit ticket trong mục cá nhân của `TEAM.md` và nộp link trên LMS.
 
 <a id="bay-lenh"></a>
 
@@ -244,7 +242,7 @@ Output mẫu và cách đọc từng dòng: [guide, Phụ lục A–B và các m
 
 1. `eval` và `grade` từ chối chạy khi bàn chưa ký tiêu chí. Ký xong phải commit và push ngay, trước lần đánh giá đầu tiên; team chấm đối chiếu lịch sử git với nhật ký lần chạy.
 2. Không sửa tiêu chí sau khi ký. File đổi sau commit ký thì bài không được tính. Đừng mở rồi lưu lại file này bằng trình soạn thảo tự định dạng.
-3. Không sửa bản chụp cổng vòng 1 (`lab10/guards_round1.py`, `config/operating_gates.round1.json`, `config/round1.lock`). Chỉ sửa đúng các chỗ ở mục 1.
+3. Không sửa bản chụp cổng vòng 1 (`lab10/guards_round1.py`, `config/operating_gates.round1.json`, `config/round1.lock`; ba file này do lệnh 5 tạo ra, trước đó chưa có). Chỉ sửa đúng các chỗ ở mục 1.
 4. Có bài kiểm tra ẩn (đơn khác, khách khác, cách viết khác, ngày khác). Không xử lý riêng theo mã ticket hay câu chữ cụ thể.
 5. Không làm hỏng cái đang đúng: ca nào trước đúng thì sau vẫn phải đúng. Chặn hết, thu hẹp phạm vi về 0 hay xếp thật nhiều người trực không phải là cách sửa; report đo cả độ phủ, chi phí và ROI.
 6. Chỉ làm đúng thẻ đã bốc; không mở hay tiết lộ thẻ của bàn khác.
@@ -259,14 +257,15 @@ Output mẫu và cách đọc từng dòng: [guide, Phụ lục A–B và các m
 | Phút 125–135 | Ghi số thẻ vào dòng `Thẻ đã bốc:` ở đầu Phiếu C |
 | Phút 185–200 | Điền v2 và ba dòng bắt buộc; điền `submission/submission.json`; lệnh 7 tới khi `ĐỦ THÀNH PHẦN` |
 | Sau demo, trước phút 240 | Chạy lại lệnh 6 và lệnh 7 nếu demo có đổi số; đẩy bài; gửi link repo |
+| Trước deadline (GMT+7) | **Mỗi thành viên** nộp link repo trên LMS; viết mục cá nhân trong `TEAM.md` |
 
-Bài nộp là thư mục `submission/` (lệnh 7 gom: code và config hai vòng, tiêu chí đã ký kèm hash, report ba mốc, nhật ký mọi lần chạy, ba phiếu A, B, C) cùng bảng thành viên trong README này. Chi tiết: [`submission/README.md`](submission/README.md).
+Bài nộp là thư mục `submission/` (lệnh 7 gom: code và config hai vòng, tiêu chí đã ký kèm hash, report ba mốc, nhật ký mọi lần chạy, ba phiếu A, B, C) cùng [`TEAM.md`](TEAM.md). Chi tiết: [`submission/README.md`](submission/README.md).
 
 ```bash
 git add -u
-git add submission templates README.md
+git add submission templates TEAM.md
 git commit -m "LAB 10: bài nộp"
 git push -u origin main
 ```
 
-Gửi link repo, ví dụ `https://github.com/<tài-khoản-trưởng-nhóm>/K5_Day10_3A_XXX`, cho team chấm theo cách Lab Coach hướng dẫn. Không push lên repo mẫu (`upstream`).
+Gửi link repo, ví dụ `https://github.com/<tài-khoản-trưởng-nhóm>/K5-L3A-DAY10-XXX-PoCtoPilotGate1`, cho team chấm theo cách Lab Coach hướng dẫn. **Mỗi thành viên** còn phải tự nộp link này trên LMS trước deadline ([`SUBMISSION.md`](SUBMISSION.md#deadline-gmt7)). Không push lên repo mẫu (`upstream`).
